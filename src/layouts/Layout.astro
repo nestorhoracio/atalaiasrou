@@ -1,0 +1,52 @@
+---
+import SEO from '../components/seo/SEO.astro';
+import '../styles/global.css';
+
+interface Props {
+	title: string;
+	description: string;
+	lang?: 'es' | 'pt';
+	ogImage?: string;
+	tipo?: 'ReligiousOrganization' | 'Organization';
+	organizacion?: {
+		nombre: string;
+		descripcion?: string;
+		areaServida?: string;
+		padre?: boolean;
+	};
+}
+
+const { title, description, lang = 'es', ogImage, tipo, organizacion } = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		<SEO title={title} description={description} lang={lang} ogImage={ogImage} tipo={tipo} organizacion={organizacion} />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Mulish:wght@400;600;700;800&display=swap"
+			rel="stylesheet"
+		/>
+
+		<script is:inline>
+			// Anti-FOUC: aplica el tema guardado antes del primer render.
+			// Namespace "atalaias" — no cambiar sin actualizar CLAUDE.md.
+			try {
+				const guardado = localStorage.getItem('atalaias-theme');
+				if (guardado === 'dark' || guardado === 'light') {
+					document.documentElement.setAttribute('data-theme', guardado);
+				}
+			} catch {}
+		</script>
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>

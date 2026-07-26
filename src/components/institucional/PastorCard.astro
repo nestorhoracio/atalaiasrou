@@ -1,0 +1,74 @@
+---
+import type { Pastor } from '../../data/pastores';
+import { etiquetasNivel } from '../../data/pastores';
+
+interface Props {
+	pastor: Pastor;
+}
+
+const { pastor } = Astro.props;
+---
+
+<article class="pastor-card tarjeta">
+	<div class="pastor-card__foto">
+		{pastor.foto ? (
+			<img src={pastor.foto} alt={pastor.nombre} loading="lazy" />
+		) : (
+			<span class="pastor-card__silueta" aria-hidden="true">👤</span>
+		)}
+	</div>
+	<p class="pastor-card__etiqueta">{etiquetasNivel[pastor.nivel]}{pastor.pais ? ` · ${pastor.pais}` : ''}</p>
+	<h3 class="pastor-card__nombre">{pastor.nombre}</h3>
+	{pastor.descripcion && <p class="pastor-card__descripcion">{pastor.descripcion}</p>}
+</article>
+
+<style>
+	.pastor-card {
+		padding: 1.5rem;
+		text-align: center;
+	}
+
+	.pastor-card__foto {
+		width: 96px;
+		height: 96px;
+		margin-inline: auto;
+		border-radius: 999px;
+		background: var(--azul-dim);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+		margin-bottom: 1rem;
+	}
+
+	.pastor-card__foto img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.pastor-card__silueta {
+		font-size: 2.5rem;
+		filter: grayscale(1);
+		opacity: 0.6;
+	}
+
+	.pastor-card__etiqueta {
+		margin: 0 0 0.25rem;
+		font-size: 0.75rem;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: var(--dorado);
+		font-weight: 700;
+	}
+
+	.pastor-card__nombre {
+		margin: 0;
+		font-size: 1.05rem;
+	}
+
+	.pastor-card__descripcion {
+		color: var(--text-muted);
+		margin: 0.5rem 0 0;
+	}
+</style>

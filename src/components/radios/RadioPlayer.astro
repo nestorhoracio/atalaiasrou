@@ -1,0 +1,210 @@
+---
+import { radios } from '../../data/radios';
+
+// Solo lo que el cliente necesita para reproducir: id, nombre y URL.
+const datosRadios = radios.map(({ id, nombre, streamUrl }) => ({ id, nombre, streamUrl }));
+const datosSeguro = JSON.stringify(datosRadios).replace(/</g, '\\u003c');
+---
+
+<div id="atalaias-radio-player" class="radio-player" hidden>
+	<div class="contenedor radio-player__interior">
+		<button id="atalaias-player-toggle" class="radio-player__toggle" type="button" aria-label="Reproducir o pausar">
+			<span class="radio-player__icono-play">▶</span>
+			<span class="radio-player__icono-pausa">❚❚</span>
+		</button>
+
+		<div class="radio-player__info">
+			<p class="radio-player__nombre" id="atalaias-player-nombre">—</p>
+			<p class="radio-player__estado" id="atalaias-player-estado">En vivo</p>
+		</div>
+
+		<label class="radio-player__volumen">
+			<span class="sr-solo">Volumen</span>
+			<input id="atalaias-player-volumen" type="range" min="0" max="1" step="0.05" value="0.85" />
+		</label>
+	</div>
+</div>
+
+<audio id="atalaias-audio" preload="none"></audio>
+
+<script type="application/json" id="atalaias-radios-data" set:html={datosSeguro} is:inline />
+
+<script>
+	interface RadioLigera {
+		id: string;
+		nombre: string;
+		streamUrl: string | null;
+	}
+
+	declare global {
+		interface Window {
+			__atalaiasPlayRadio?: (id: string) => void;
+		}
+	}
+
+	const datosEl = document.getElementById('atalaias-radios-data');
+	const radios: RadioLigera[] = datosEl ? JSON.parse(datosEl.textContent ?? '[]') : [];
+
+	const audio = document.getElementById('atalaias-audio') as HTMLAudioElement;
+	const reproductor = document.getElementById('atalaias-radio-player') as HTMLElement;
+	const botonToggle = document.getElementById('atalaias-player-toggle') as HTMLButtonElement;
+	const nombreEl = document.getElementById('atalaias-player-nombre') as HTMLElement;
+	const estadoEl = document.getElementById('atalaias-player-estado') as HTMLElement;
+	const volumenEl = document.getElementById('atalaias-player-volumen') as HTMLInputElement;
+
+	let radioActualId: string | null = null;
+	let reproduciendo = false;
+	// Al pausar hacemos audio.src = '', lo que dispara un evento "error" async
+	// del <audio> aunque no haya ninguna falla real. Esta bandera evita que ese
+	// error espurio pise el estado "Pausado" con "no disponible".
+	let pausaIntencional = false;
+
+	audio.volume = Number(volumenEl.value);
+
+	function actualizarUI() {
+		reproductor.hidden = false;
+		reproductor.classList.toggle('radio-player--activo', reproduciendo);
+	}
+
+	function reproducir(radio: RadioLigera) {
+		if (!radio.streamUrl || !radio.streamUrl.startsWith('https://')) return;
+
+		radioActualId = radio.id;
+		nombreEl.textContent = radio.nombre;
+		estadoEl.textContent = 'Conectando…';
+
+		audio.src = `${radio.streamUrl}?t=${Date.now()}`;
+		audio
+			.play()
+			.then(() => {
+				estadoEl.textContent = 'En vivo';
+			})
+			.catch(() => {
+				estadoEl.textContent = 'No se pudo conectar';
+			});
+
+		reproduciendo = true;
+		actualizarUI();
+		window.dispatchEvent(new CustomEvent('atalaias:playing', { detail: { id: radio.id } }));
+	}
+
+	function pausar() {
+		pausaIntencional = true;
+		audio.pause();
+		audio.src = ''; // evita seguir bufferizando el stream en vivo en segundo plano
+		reproduciendo = false;
+		estadoEl.textContent = 'Pausado';
+		actualizarUI();
+		window.dispatchEvent(new Event('atalaias:paused'));
+	}
+
+	window.__atalaiasPlayRadio = (id: string) => {
+		if (radioActualId === id && reproduciendo) {
+			pausar();
+			return;
+		}
+		const radio = radios.find((r) => r.id === id);
+		if (radio) reproducir(radio);
+	};
+
+	botonToggle.addEventListener('click', () => {
+		if (reproduciendo) {
+			pausar();
+			return;
+		}
+		if (radioActualId) {
+			const radio = radios.find((r) => r.id === radioActualId);
+			if (radio) reproducir(radio);
+		}
+	});
+
+	audio.addEventListener('error', () => {
+		if (pausaIntencional) {
+			pausaIntencional = false;
+			return;
+		}
+		if (!radioActualId) return;
+		estadoEl.textContent = 'Emisora temporalmente no disponible';
+		reproduciendo = false;
+		actualizarUI();
+		window.dispatchEvent(new Event('atalaias:paused'));
+	});
+
+	volumenEl.addEventListener('input', () => {
+		audio.volume = Number(volumenEl.value);
+	});
+</script>
+
+<style>
+	.radio-player {
+		position: fixed;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 50;
+		height: var(--player-h);
+		background: var(--surface);
+		border-top: 1px solid var(--border);
+		box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+	}
+
+	.radio-player__interior {
+		height: 100%;
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.radio-player__toggle {
+		width: 48px;
+		height: 48px;
+		flex-shrink: 0;
+		border-radius: 999px;
+		border: none;
+		background: var(--dorado);
+		color: #2a1e00;
+		font-size: 1rem;
+		cursor: pointer;
+	}
+
+	.radio-player__icono-pausa {
+		display: none;
+	}
+
+	.radio-player--activo .radio-player__icono-play {
+		display: none;
+	}
+
+	.radio-player--activo .radio-player__icono-pausa {
+		display: inline;
+	}
+
+	.radio-player__info {
+		flex: 1;
+		min-width: 0;
+	}
+
+	.radio-player__nombre {
+		margin: 0;
+		font-weight: 800;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.radio-player__estado {
+		margin: 0;
+		font-size: 0.8rem;
+		color: var(--text-muted);
+	}
+
+	.radio-player__volumen input {
+		width: 100px;
+	}
+
+	@media (max-width: 560px) {
+		.radio-player__volumen {
+			display: none;
+		}
+	}
+</style>

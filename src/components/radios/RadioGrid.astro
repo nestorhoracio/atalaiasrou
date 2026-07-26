@@ -1,0 +1,35 @@
+---
+import { radios } from '../../data/radios';
+import RadioCard from './RadioCard.astro';
+---
+
+<div id="atalaias-radio-grid" class="grid-auto">
+	{radios.map((radio) => <RadioCard radio={radio} />)}
+</div>
+
+<script>
+	// Delegación de eventos: un solo listener para las 20 tarjetas.
+	// Namespace "atalaias" — no cambiar sin actualizar CLAUDE.md.
+	const grilla = document.getElementById('atalaias-radio-grid');
+
+	grilla?.addEventListener('click', (evento) => {
+		const boton = (evento.target as HTMLElement)?.closest<HTMLButtonElement>('[data-radio-id]');
+		if (!boton || boton.disabled) return;
+		window.__atalaiasPlayRadio?.(boton.dataset.radioId!);
+	});
+
+	function marcarActiva(id: string | null) {
+		grilla?.querySelectorAll('[data-radio-id]').forEach((el) => {
+			el.classList.toggle('radio-card--activa', !!id && el.getAttribute('data-radio-id') === id);
+		});
+	}
+
+	window.addEventListener('atalaias:playing', (e) => marcarActiva((e as CustomEvent<{ id: string }>).detail.id));
+	window.addEventListener('atalaias:paused', () => marcarActiva(null));
+
+	declare global {
+		interface Window {
+			__atalaiasPlayRadio?: (id: string) => void;
+		}
+	}
+</script>

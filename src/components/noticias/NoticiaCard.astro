@@ -1,0 +1,81 @@
+---
+interface Props {
+	href: string;
+	titulo: string;
+	resumen: string;
+	fecha: Date;
+	imagen?: string;
+	imagenAlt?: string;
+	lang?: 'es' | 'pt';
+}
+
+const { href, titulo, resumen, fecha, imagen, imagenAlt, lang = 'es' } = Astro.props;
+
+// timeZone: 'UTC' evita el off-by-one-día: z.coerce.date() parsea "2026-07-01"
+// como medianoche UTC, y sin fijar la zona el formateo cae al huso horario
+// local del servidor/navegador (ej. muestra "30 de junio" en UTC-3).
+const fechaFormateada = new Intl.DateTimeFormat(lang === 'pt' ? 'pt-BR' : 'es-UY', {
+	day: 'numeric',
+	month: 'long',
+	year: 'numeric',
+	timeZone: 'UTC',
+}).format(fecha);
+---
+
+<a class="noticia-card tarjeta" href={href}>
+	{imagen && (
+		<div class="noticia-card__imagen">
+			<img src={imagen} alt={imagenAlt ?? ''} loading="lazy" />
+		</div>
+	)}
+	<div class="noticia-card__cuerpo">
+		<p class="noticia-card__fecha">{fechaFormateada}</p>
+		<h3 class="noticia-card__titulo">{titulo}</h3>
+		<p class="noticia-card__resumen">{resumen}</p>
+	</div>
+</a>
+
+<style>
+	.noticia-card {
+		display: block;
+		text-decoration: none;
+		color: var(--text);
+		overflow: hidden;
+	}
+
+	.noticia-card__imagen {
+		aspect-ratio: 16 / 9;
+		overflow: hidden;
+		background: var(--surface-2);
+	}
+
+	.noticia-card__imagen img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.noticia-card__cuerpo {
+		padding: 1.25rem;
+	}
+
+	.noticia-card__fecha {
+		margin: 0 0 0.4rem;
+		font-size: 0.8rem;
+		color: var(--dorado);
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+	}
+
+	.noticia-card__titulo {
+		margin: 0 0 0.5rem;
+		font-size: 1.1rem;
+	}
+
+	.noticia-card__resumen {
+		margin: 0;
+		color: var(--text-muted);
+		font-size: 0.95rem;
+	}
+</style>

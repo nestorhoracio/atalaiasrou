@@ -1,0 +1,56 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/layout/Header.astro';
+import Footer from '../../../components/layout/Footer.astro';
+import SubsiteNav from '../../../components/subsite/SubsiteNav.astro';
+
+export async function getStaticPaths() {
+	const noticias = await getCollection('noticias-uruguay');
+	return noticias.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+// timeZone: 'UTC' evita el off-by-one-día (ver NoticiaCard.astro).
+const fechaFormateada = new Intl.DateTimeFormat('es-UY', {
+	day: 'numeric',
+	month: 'long',
+	year: 'numeric',
+	timeZone: 'UTC',
+}).format(entry.data.fecha);
+---
+
+<Layout title={`${entry.data.titulo} — IMTF Uruguay`} description={entry.data.resumen} lang="es">
+	<Header />
+	<SubsiteNav lang="es" base="/uruguay" activo="noticias" />
+
+	<article class="seccion contenedor noticia-detalle">
+		<p class="etiqueta">{fechaFormateada}</p>
+		<h1>{entry.data.titulo}</h1>
+		{entry.data.imagen && <img src={entry.data.imagen} alt={entry.data.imagenAlt ?? ''} class="noticia-detalle__imagen" />}
+		<div class="noticia-detalle__cuerpo">
+			<Content />
+		</div>
+		<a href="/uruguay/noticias/">← Volver a noticias</a>
+	</article>
+
+	<Footer lang="es" />
+</Layout>
+
+<style>
+	.noticia-detalle {
+		max-width: 760px;
+	}
+
+	.noticia-detalle__imagen {
+		border-radius: var(--radius);
+		margin-block: 1.5rem;
+	}
+
+	.noticia-detalle__cuerpo {
+		line-height: 1.75;
+		margin-bottom: 2rem;
+	}
+</style>

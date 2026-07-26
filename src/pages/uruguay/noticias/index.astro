@@ -1,0 +1,42 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/layout/Header.astro';
+import Footer from '../../../components/layout/Footer.astro';
+import SubsiteNav from '../../../components/subsite/SubsiteNav.astro';
+import NoticiaCard from '../../../components/noticias/NoticiaCard.astro';
+
+const noticias = (await getCollection('noticias-uruguay', ({ data }) => !data.borrador && data.fecha <= new Date())).sort(
+	(a, b) => b.data.fecha.valueOf() - a.data.fecha.valueOf()
+);
+---
+
+<Layout title="Noticias — IMTF Uruguay" description="Novedades y noticias del proyecto IMTF Uruguay." lang="es">
+	<Header />
+	<SubsiteNav lang="es" base="/uruguay" activo="noticias" />
+
+	<section class="seccion contenedor">
+		<p class="etiqueta">IMTF Uruguay</p>
+		<h1>Noticias</h1>
+
+		{noticias.length === 0 ? (
+			<p style="color: var(--text-muted);">Todavía no hay noticias publicadas.</p>
+		) : (
+			<div class="grid-auto">
+				{noticias.map((noticia) => (
+					<NoticiaCard
+						href={`/uruguay/noticias/${noticia.id}/`}
+						titulo={noticia.data.titulo}
+						resumen={noticia.data.resumen}
+						fecha={noticia.data.fecha}
+						imagen={noticia.data.imagen}
+						imagenAlt={noticia.data.imagenAlt}
+						lang="es"
+					/>
+				))}
+			</div>
+		)}
+	</section>
+
+	<Footer lang="es" />
+</Layout>

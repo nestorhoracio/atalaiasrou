@@ -1,0 +1,128 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+
+interface Props {
+	lang?: 'es' | 'pt';
+}
+
+const { lang = 'es' } = Astro.props;
+
+const textos = {
+	es: {
+		inicio: 'Inicio',
+		radios: 'Radios',
+		institucional: 'Institucional',
+		uruguay: 'Uruguay',
+		brasil: 'Brasil',
+	},
+	pt: {
+		inicio: 'Início',
+		radios: 'Rádios',
+		institucional: 'Institucional',
+		uruguay: 'Uruguai',
+		brasil: 'Brasil',
+	},
+} as const;
+
+const t = textos[lang];
+const ruta = Astro.url.pathname;
+const activo = (prefijo: string) => (ruta === prefijo || (prefijo !== '/' && ruta.startsWith(prefijo)) ? 'nav__enlace--activo' : '');
+---
+
+<header class="header">
+	<div class="contenedor header__interior">
+		<a href="/" class="header__marca" aria-label="Atalaias Rou — Inicio">
+			<!-- Placeholder de logo: reemplazar por el logo real del cliente cuando esté disponible -->
+			<span class="header__marca-icono">A</span>
+			<span class="header__marca-texto">Atalaias Rou</span>
+		</a>
+
+		<nav class="nav" aria-label="Navegación principal">
+			<a class:list={['nav__enlace', activo('/')]} href="/">{t.inicio}</a>
+			<a class:list={['nav__enlace']} href="/#radios">{t.radios}</a>
+			<a class:list={['nav__enlace', activo('/institucional')]} href="/institucional/">{t.institucional}</a>
+			<a class:list={['nav__enlace', activo('/uruguay')]} href="/uruguay/">{t.uruguay}</a>
+			<a class:list={['nav__enlace', activo('/brasil')]} href="/brasil/">{t.brasil}</a>
+		</nav>
+
+		<ThemeToggle />
+	</div>
+</header>
+
+<style>
+	.header {
+		position: sticky;
+		top: 0;
+		z-index: 40;
+		height: var(--header-h);
+		display: flex;
+		align-items: center;
+		background: color-mix(in srgb, var(--surface) 92%, transparent);
+		backdrop-filter: blur(8px);
+		border-bottom: 1px solid var(--border);
+	}
+
+	.header__interior {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+	}
+
+	.header__marca {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.6rem;
+		text-decoration: none;
+		color: var(--text);
+		font-family: 'Fraunces', serif;
+		font-weight: 700;
+		font-size: 1.15rem;
+	}
+
+	.header__marca-icono {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 36px;
+		height: 36px;
+		border-radius: 999px;
+		background: linear-gradient(135deg, var(--dorado), var(--azul));
+		color: #fff;
+		font-family: 'Fraunces', serif;
+	}
+
+	.nav {
+		display: flex;
+		align-items: center;
+		gap: 1.25rem;
+		flex-wrap: wrap;
+	}
+
+	.nav__enlace {
+		color: var(--text-muted);
+		text-decoration: none;
+		font-weight: 700;
+		font-size: 0.92rem;
+		padding-block: 0.25rem;
+		border-bottom: 2px solid transparent;
+	}
+
+	.nav__enlace:hover,
+	.nav__enlace--activo {
+		color: var(--text);
+		border-color: var(--dorado);
+	}
+
+	@media (max-width: 720px) {
+		.header__marca-texto {
+			display: none;
+		}
+		.nav {
+			gap: 0.75rem;
+		}
+		.nav__enlace {
+			font-size: 0.82rem;
+		}
+	}
+</style>

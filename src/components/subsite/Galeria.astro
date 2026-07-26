@@ -1,0 +1,48 @@
+---
+interface Foto {
+	src: string;
+	alt: string;
+}
+
+interface Props {
+	lang?: 'es' | 'pt';
+	fotos: Foto[];
+}
+
+const { lang = 'es', fotos } = Astro.props;
+
+const textos = {
+	es: { titulo: 'Fotos', vacio: 'Todavía no tenemos fotos cargadas de las actividades. Muy pronto vas a poder verlas acá.' },
+	pt: { titulo: 'Fotos', vacio: 'Ainda não temos fotos das atividades. Em breve você poderá vê-las aqui.' },
+} as const;
+
+const t = textos[lang];
+---
+
+<section id="fotos" class="seccion contenedor">
+	<h2>{t.titulo}</h2>
+	{fotos.length === 0 ? (
+		<p style="color: var(--text-muted);">{t.vacio}</p>
+	) : (
+		<div class="galeria-grid">
+			{fotos.map((foto) => (
+				<img src={foto.src} alt={foto.alt} loading="lazy" class="galeria-grid__foto" />
+			))}
+		</div>
+	)}
+</section>
+
+<style>
+	.galeria-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+		gap: 1rem;
+	}
+
+	.galeria-grid__foto {
+		width: 100%;
+		aspect-ratio: 4 / 3;
+		object-fit: cover;
+		border-radius: var(--radius);
+	}
+</style>

@@ -1,0 +1,56 @@
+---
+interface ItemHorario {
+	actividad: string;
+	dia: string;
+	hora: string;
+}
+
+interface Props {
+	lang?: 'es' | 'pt';
+	items: ItemHorario[];
+}
+
+const { lang = 'es', items } = Astro.props;
+
+const textos = {
+	es: { titulo: 'Horarios de actividades', dia: 'Día', hora: 'Horario' },
+	pt: { titulo: 'Horários de atividades', dia: 'Dia', hora: 'Horário' },
+} as const;
+
+const t = textos[lang];
+---
+
+<section id="horarios" class="seccion contenedor">
+	<h2>{t.titulo}</h2>
+	<div class="horarios-tabla tarjeta">
+		{items.map((item) => (
+			<div class="horarios-tabla__fila">
+				<span class="horarios-tabla__actividad">{item.actividad}</span>
+				<span>{item.dia}</span>
+				<span>{item.hora}</span>
+			</div>
+		))}
+	</div>
+</section>
+
+<style>
+	.horarios-tabla {
+		padding: 0.5rem 1.5rem;
+	}
+
+	.horarios-tabla__fila {
+		display: grid;
+		grid-template-columns: 2fr 1fr 1fr;
+		gap: 1rem;
+		padding-block: 1rem;
+		border-bottom: 1px solid var(--border);
+	}
+
+	.horarios-tabla__fila:last-child {
+		border-bottom: none;
+	}
+
+	.horarios-tabla__actividad {
+		font-weight: 700;
+	}
+</style>

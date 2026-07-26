@@ -1,0 +1,42 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/layout/Header.astro';
+import Footer from '../../../components/layout/Footer.astro';
+import SubsiteNav from '../../../components/subsite/SubsiteNav.astro';
+import NoticiaCard from '../../../components/noticias/NoticiaCard.astro';
+
+const noticias = (await getCollection('noticias-brasil', ({ data }) => !data.borrador && data.fecha <= new Date())).sort(
+	(a, b) => b.data.fecha.valueOf() - a.data.fecha.valueOf()
+);
+---
+
+<Layout title="Notícias — IMTF Brasil" description="Novidades e notícias do projeto IMTF Brasil." lang="pt">
+	<Header lang="pt" />
+	<SubsiteNav lang="pt" base="/brasil" activo="noticias" />
+
+	<section class="seccion contenedor">
+		<p class="etiqueta">IMTF Brasil</p>
+		<h1>Notícias</h1>
+
+		{noticias.length === 0 ? (
+			<p style="color: var(--text-muted);">Ainda não há notícias publicadas.</p>
+		) : (
+			<div class="grid-auto">
+				{noticias.map((noticia) => (
+					<NoticiaCard
+						href={`/brasil/noticias/${noticia.id}/`}
+						titulo={noticia.data.titulo}
+						resumen={noticia.data.resumen}
+						fecha={noticia.data.fecha}
+						imagen={noticia.data.imagen}
+						imagenAlt={noticia.data.imagenAlt}
+						lang="pt"
+					/>
+				))}
+			</div>
+		)}
+	</section>
+
+	<Footer lang="pt" />
+</Layout>

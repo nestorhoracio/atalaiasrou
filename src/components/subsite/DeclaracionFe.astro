@@ -1,0 +1,40 @@
+---
+interface Props {
+	lang?: 'es' | 'pt';
+	declaracion: string;
+	historia: string;
+}
+
+const { lang = 'es', declaracion, historia } = Astro.props;
+
+const textos = {
+	es: { declaracion: 'Declaración de fe', historia: 'Nuestra historia' },
+	pt: { declaracion: 'Declaração de fé', historia: 'Nossa história' },
+} as const;
+
+const t = textos[lang];
+---
+
+<section id="historia" class="seccion contenedor declaracion-fe">
+	<div class="declaracion-fe__bloque">
+		<h2>{t.declaracion}</h2>
+		<p>{declaracion}</p>
+	</div>
+	<div class="declaracion-fe__bloque">
+		<h2>{t.historia}</h2>
+		<p>{historia}</p>
+	</div>
+</section>
+
+<style>
+	.declaracion-fe {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 2.5rem;
+	}
+
+	.declaracion-fe__bloque p {
+		color: var(--text-muted);
+		line-height: 1.75;
+	}
+</style>

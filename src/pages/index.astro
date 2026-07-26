@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import Hero from '../components/home/Hero.astro';
+import RadioGrid from '../components/radios/RadioGrid.astro';
+import RadioPlayer from '../components/radios/RadioPlayer.astro';
+import TeaserInstitucional from '../components/home/TeaserInstitucional.astro';
+---
+
+<Layout
+	title="Atalaias Rou — Radios evangélicas de IMTF Uruguay y Brasil"
+	description="Escuchá en vivo las emisoras de radio evangélicas de IMTF Uruguay y Brasil, y conocé los proyectos de predicación y acción social del ministerio."
+	organizacion={{
+		nombre: 'Atalaias Rou / IMTF Uruguay y Brasil',
+		descripcion: 'Ministerio evangélico que agrupa la transmisión de radios cristianas y proyectos de predicación y acción social en Uruguay y Brasil.',
+	}}
+>
+	<Header />
+	<Hero />
+
+	<section id="radios" class="seccion">
+		<div class="contenedor">
+			<p class="etiqueta">En vivo</p>
+			<h2>Nuestras radios</h2>
+			<p style="color: var(--text-muted); max-width: 60ch;">
+				Elegí una emisora para escucharla en vivo. Las que todavía no están disponibles se irán sumando a medida que
+				confirmemos sus datos de transmisión.
+			</p>
+			<RadioGrid />
+		</div>
+	</section>
+
+	<TeaserInstitucional />
+
+	<RadioPlayer />
+	<Footer />
+</Layout>
+
+<style>
+	:global(body) {
+		padding-bottom: var(--player-h);
+	}
+</style>

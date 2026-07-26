@@ -1,0 +1,116 @@
+---
+import type { Radio } from '../../data/radios';
+import { estaDisponible } from '../../data/radios';
+
+interface Props {
+	radio: Radio;
+}
+
+const { radio } = Astro.props;
+const disponible = estaDisponible(radio);
+const etiqueta = radio.streamUrl === null ? 'Próximamente' : disponible ? '' : 'No disponible';
+---
+
+<button
+	class="radio-card tarjeta"
+	data-radio-id={radio.id}
+	data-radio-nombre={radio.nombre}
+	disabled={!disponible}
+	aria-disabled={!disponible}
+	aria-label={`Escuchar ${radio.nombre}`}
+>
+	<span class="radio-card__logo" aria-hidden="true">
+		{radio.logo ? <img src={radio.logo} alt="" loading="lazy" /> : <span class="radio-card__logo-inicial">{radio.nombre.charAt(0)}</span>}
+	</span>
+	<span class="radio-card__nombre">{radio.nombre}</span>
+	{etiqueta && <span class="radio-card__etiqueta">{etiqueta}</span>}
+	{disponible && (
+		<span class="radio-card__icono" aria-hidden="true">
+			<span class="radio-card__icono-play">▶</span>
+			<span class="radio-card__icono-pausa">❚❚</span>
+		</span>
+	)}
+</button>
+
+<style>
+	.radio-card {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.6rem;
+		padding: 1.25rem 1rem;
+		text-align: center;
+		font: inherit;
+		color: var(--text);
+		cursor: pointer;
+		transition: transform 0.15s ease, border-color 0.15s ease;
+	}
+
+	.radio-card:not(:disabled):hover {
+		transform: translateY(-2px);
+		border-color: var(--dorado);
+	}
+
+	.radio-card:disabled {
+		cursor: not-allowed;
+		opacity: 0.55;
+	}
+
+	.radio-card__logo {
+		width: 56px;
+		height: 56px;
+		border-radius: 999px;
+		background: var(--azul-dim);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+	}
+
+	.radio-card__logo img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.radio-card__logo-inicial {
+		font-family: 'Fraunces', serif;
+		font-weight: 700;
+		font-size: 1.4rem;
+		color: var(--azul);
+	}
+
+	.radio-card__nombre {
+		font-weight: 700;
+		font-size: 0.95rem;
+	}
+
+	.radio-card__etiqueta {
+		font-size: 0.75rem;
+		color: var(--text-faint);
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+	}
+
+	.radio-card__icono {
+		font-size: 0.8rem;
+		color: var(--dorado);
+	}
+
+	.radio-card__icono-pausa {
+		display: none;
+	}
+
+	.radio-card.radio-card--activa .radio-card__icono-play {
+		display: none;
+	}
+
+	.radio-card.radio-card--activa .radio-card__icono-pausa {
+		display: inline;
+	}
+
+	.radio-card.radio-card--activa {
+		border-color: var(--dorado);
+		box-shadow: 0 0 0 2px var(--dorado-dim);
+	}
+</style>

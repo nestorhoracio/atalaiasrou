@@ -1,0 +1,36 @@
+---
+import { pastores, type NivelPastor } from '../../data/pastores';
+import PastorCard from './PastorCard.astro';
+
+const niveles: NivelPastor[] = ['mundial', 'nacional', 'regional'];
+const tituloNivel: Record<NivelPastor, string> = {
+	mundial: 'Pastores mundiales',
+	nacional: 'Pastores nacionales',
+	regional: 'Pastores regionales',
+};
+---
+
+{
+	niveles.map((nivel) => {
+		const pastoresDelNivel = pastores.filter((p) => p.nivel === nivel);
+		if (pastoresDelNivel.length === 0) return null;
+		return (
+			<div class="pastores-nivel">
+				<h3 class="pastores-nivel__titulo">{tituloNivel[nivel]}</h3>
+				<div class="grid-auto">
+					{pastoresDelNivel.map((pastor) => <PastorCard pastor={pastor} />)}
+				</div>
+			</div>
+		);
+	})
+}
+
+<style>
+	.pastores-nivel {
+		margin-bottom: 2.5rem;
+	}
+
+	.pastores-nivel__titulo {
+		color: var(--azul);
+	}
+</style>

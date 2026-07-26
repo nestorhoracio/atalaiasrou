@@ -1,0 +1,116 @@
+---
+interface Props {
+	lang?: 'es' | 'pt';
+}
+
+const { lang = 'es' } = Astro.props;
+const anio = new Date().getFullYear();
+
+const textos = {
+	es: {
+		contacto: 'Contacto',
+		whatsapp: 'Escribinos por WhatsApp',
+		email: 'Escribinos por correo',
+		institucional: 'Institucional',
+		proyectos: 'Proyectos',
+		derechos: `© ${anio} Atalaias Rou / IMTF Uruguay y Brasil. Todos los derechos reservados.`,
+	},
+	pt: {
+		contacto: 'Contato',
+		whatsapp: 'Fale conosco pelo WhatsApp',
+		email: 'Fale conosco por e-mail',
+		institucional: 'Institucional',
+		proyectos: 'Projetos',
+		derechos: `© ${anio} Atalaias Rou / IMTF Uruguai e Brasil. Todos os direitos reservados.`,
+	},
+} as const;
+
+const t = textos[lang];
+
+// TODO: reemplazar por el número de WhatsApp y el correo reales del proyecto.
+const WHATSAPP = '598000000000';
+const EMAIL = 'contacto@atalaias-rou.org';
+---
+
+<footer id="contacto" class="footer">
+	<div class="contenedor footer__interior">
+		<div class="footer__col">
+			<p class="footer__marca">Atalaias Rou</p>
+			<p class="footer__descripcion">IMTF Uruguay · IMTF Brasil</p>
+		</div>
+
+		<div class="footer__col">
+			<p class="footer__titulo">{t.contacto}</p>
+			<a class="footer__enlace" href={`https://wa.me/${WHATSAPP}`} target="_blank" rel="noopener noreferrer">
+				{t.whatsapp}
+			</a>
+			<a class="footer__enlace" href={`mailto:${EMAIL}`}>{t.email}</a>
+		</div>
+
+		<div class="footer__col">
+			<p class="footer__titulo">{t.proyectos}</p>
+			<a class="footer__enlace" href="/uruguay/">IMTF Uruguay</a>
+			<a class="footer__enlace" href="/brasil/">IMTF Brasil</a>
+			<a class="footer__enlace" href="/institucional/">{t.institucional}</a>
+		</div>
+	</div>
+
+	<div class="contenedor footer__legal">
+		<p>{t.derechos}</p>
+	</div>
+</footer>
+
+<style>
+	.footer {
+		background: var(--surface-2);
+		border-top: 1px solid var(--border);
+		padding-block: 3rem 1.5rem;
+		margin-top: auto;
+	}
+
+	.footer__interior {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+		gap: 2rem;
+	}
+
+	.footer__marca {
+		font-family: 'Fraunces', serif;
+		font-weight: 700;
+		font-size: 1.2rem;
+		margin: 0 0 0.25rem;
+	}
+
+	.footer__descripcion {
+		color: var(--text-muted);
+		margin: 0;
+	}
+
+	.footer__titulo {
+		font-weight: 800;
+		text-transform: uppercase;
+		font-size: 0.8rem;
+		letter-spacing: 0.05em;
+		color: var(--dorado);
+		margin: 0 0 0.75rem;
+	}
+
+	.footer__enlace {
+		display: block;
+		color: var(--text-muted);
+		text-decoration: none;
+		margin-bottom: 0.5rem;
+	}
+
+	.footer__enlace:hover {
+		color: var(--text);
+	}
+
+	.footer__legal {
+		margin-top: 2.5rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid var(--border);
+		color: var(--text-faint);
+		font-size: 0.85rem;
+	}
+</style>

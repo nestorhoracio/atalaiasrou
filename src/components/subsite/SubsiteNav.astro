@@ -1,0 +1,72 @@
+---
+interface Props {
+	lang?: 'es' | 'pt';
+	base: string; // ej: '/uruguay'
+	activo?: 'inicio' | 'noticias';
+}
+
+const { lang = 'es', base, activo = 'inicio' } = Astro.props;
+
+const textos = {
+	es: {
+		inicio: 'Inicio',
+		historia: 'Historia',
+		fotos: 'Fotos',
+		videos: 'Videos',
+		horarios: 'Horarios',
+		noticias: 'Noticias',
+	},
+	pt: {
+		inicio: 'Início',
+		historia: 'História',
+		fotos: 'Fotos',
+		videos: 'Vídeos',
+		horarios: 'Horários',
+		noticias: 'Notícias',
+	},
+} as const;
+
+const t = textos[lang];
+---
+
+<nav class="subsite-nav" aria-label="Navegación de la sección">
+	<div class="contenedor subsite-nav__interior">
+		<a class:list={['subsite-nav__enlace', activo === 'inicio' && 'subsite-nav__enlace--activo']} href={`${base}/`}>
+			{t.inicio}
+		</a>
+		<a class="subsite-nav__enlace" href={`${base}/#historia`}>{t.historia}</a>
+		<a class="subsite-nav__enlace" href={`${base}/#fotos`}>{t.fotos}</a>
+		<a class="subsite-nav__enlace" href={`${base}/#videos`}>{t.videos}</a>
+		<a class="subsite-nav__enlace" href={`${base}/#horarios`}>{t.horarios}</a>
+		<a class:list={['subsite-nav__enlace', activo === 'noticias' && 'subsite-nav__enlace--activo']} href={`${base}/noticias/`}>
+			{t.noticias}
+		</a>
+	</div>
+</nav>
+
+<style>
+	.subsite-nav {
+		background: var(--surface-2);
+		border-bottom: 1px solid var(--border);
+		overflow-x: auto;
+	}
+
+	.subsite-nav__interior {
+		display: flex;
+		gap: 1.5rem;
+		padding-block: 0.75rem;
+	}
+
+	.subsite-nav__enlace {
+		white-space: nowrap;
+		color: var(--text-muted);
+		text-decoration: none;
+		font-weight: 700;
+		font-size: 0.9rem;
+	}
+
+	.subsite-nav__enlace:hover,
+	.subsite-nav__enlace--activo {
+		color: var(--azul);
+	}
+</style>

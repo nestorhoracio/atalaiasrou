@@ -1,0 +1,67 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+import SubsiteNav from '../../components/subsite/SubsiteNav.astro';
+import DeclaracionFe from '../../components/subsite/DeclaracionFe.astro';
+import Galeria from '../../components/subsite/Galeria.astro';
+import Videos from '../../components/subsite/Videos.astro';
+import Horarios from '../../components/subsite/Horarios.astro';
+import NoticiaCard from '../../components/noticias/NoticiaCard.astro';
+import { declaracionFe, historia, fotos, videoIdsYoutube } from '../../data/contenido-uruguay';
+import { horarios } from '../../data/horarios-uruguay';
+
+const ultimasNoticias = (await getCollection('noticias-uruguay', ({ data }) => !data.borrador && data.fecha <= new Date()))
+	.sort((a, b) => b.data.fecha.valueOf() - a.data.fecha.valueOf())
+	.slice(0, 3);
+---
+
+<Layout
+	title="IMTF Uruguay — Atalaias Rou"
+	description="Declaración de fe, historia, actividades y noticias de IMTF Uruguay: predicación del evangelio y acción social."
+	lang="es"
+	organizacion={{
+		nombre: 'IMTF Uruguay',
+		descripcion: 'Proyecto de predicación del evangelio y acción social en Uruguay.',
+		areaServida: 'Uruguay',
+		padre: true,
+	}}
+>
+	<Header lang="es" />
+	<SubsiteNav lang="es" base="/uruguay" activo="inicio" />
+
+	<header class="seccion contenedor">
+		<p class="etiqueta">IMTF Uruguay</p>
+		<h1>Predicación del evangelio y acción social</h1>
+	</header>
+
+	<DeclaracionFe lang="es" declaracion={declaracionFe} historia={historia} />
+	<Galeria lang="es" fotos={fotos} />
+	<Videos lang="es" videoIds={videoIdsYoutube} />
+	<Horarios lang="es" items={horarios} />
+
+	<section class="seccion contenedor">
+		<h2>Últimas noticias</h2>
+		{ultimasNoticias.length === 0 ? (
+			<p style="color: var(--text-muted);">Todavía no hay noticias publicadas.</p>
+		) : (
+			<div class="grid-auto">
+				{ultimasNoticias.map((noticia) => (
+					<NoticiaCard
+						href={`/uruguay/noticias/${noticia.id}/`}
+						titulo={noticia.data.titulo}
+						resumen={noticia.data.resumen}
+						fecha={noticia.data.fecha}
+						imagen={noticia.data.imagen}
+						imagenAlt={noticia.data.imagenAlt}
+						lang="es"
+					/>
+				))}
+			</div>
+		)}
+		<p style="margin-top: 1.5rem;"><a href="/uruguay/noticias/">Ver todas las noticias →</a></p>
+	</section>
+
+	<Footer lang="es" />
+</Layout>

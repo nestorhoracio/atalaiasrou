@@ -1,0 +1,63 @@
+---
+interface DatosOrganizacion {
+	nombre: string;
+	descripcion?: string;
+	areaServida?: string;
+	padre?: boolean;
+}
+
+interface Props {
+	title: string;
+	description: string;
+	lang?: 'es' | 'pt';
+	ogImage?: string;
+	tipo?: 'ReligiousOrganization' | 'Organization';
+	organizacion?: DatosOrganizacion;
+}
+
+const {
+	title,
+	description,
+	lang = 'es',
+	ogImage,
+	tipo = 'ReligiousOrganization',
+	organizacion,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+// TODO: no hay og-image real todavía (pendiente logo del cliente) — sin default
+// para no referenciar una imagen rota en redes sociales.
+const imagenAbsoluta = ogImage ? new URL(ogImage, Astro.site) : null;
+
+const jsonLd = organizacion
+	? {
+			'@context': 'https://schema.org',
+			'@type': tipo,
+			name: organizacion.nombre,
+			description: organizacion.descripcion ?? description,
+			url: canonical.toString(),
+			...(organizacion.areaServida ? { areaServed: organizacion.areaServida } : {}),
+			...(organizacion.padre
+				? { parentOrganization: { '@type': 'ReligiousOrganization', name: 'Atalaias Rou / IMTF' } }
+				: {}),
+		}
+	: null;
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+{imagenAbsoluta && <meta property="og:image" content={imagenAbsoluta} />}
+<meta property="og:url" content={canonical} />
+<meta property="og:locale" content={lang === 'pt' ? 'pt_BR' : 'es_UY'} />
+
+<meta name="twitter:card" content={imagenAbsoluta ? 'summary_large_image' : 'summary'} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+{imagenAbsoluta && <meta name="twitter:image" content={imagenAbsoluta} />}
+
+{jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />}

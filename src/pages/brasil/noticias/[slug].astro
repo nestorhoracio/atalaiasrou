@@ -1,0 +1,56 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/layout/Header.astro';
+import Footer from '../../../components/layout/Footer.astro';
+import SubsiteNav from '../../../components/subsite/SubsiteNav.astro';
+
+export async function getStaticPaths() {
+	const noticias = await getCollection('noticias-brasil');
+	return noticias.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+// timeZone: 'UTC' evita el off-by-one-día (ver NoticiaCard.astro).
+const fechaFormateada = new Intl.DateTimeFormat('pt-BR', {
+	day: 'numeric',
+	month: 'long',
+	year: 'numeric',
+	timeZone: 'UTC',
+}).format(entry.data.fecha);
+---
+
+<Layout title={`${entry.data.titulo} — IMTF Brasil`} description={entry.data.resumen} lang="pt">
+	<Header lang="pt" />
+	<SubsiteNav lang="pt" base="/brasil" activo="noticias" />
+
+	<article class="seccion contenedor noticia-detalle">
+		<p class="etiqueta">{fechaFormateada}</p>
+		<h1>{entry.data.titulo}</h1>
+		{entry.data.imagen && <img src={entry.data.imagen} alt={entry.data.imagenAlt ?? ''} class="noticia-detalle__imagen" />}
+		<div class="noticia-detalle__cuerpo">
+			<Content />
+		</div>
+		<a href="/brasil/noticias/">← Voltar para notícias</a>
+	</article>
+
+	<Footer lang="pt" />
+</Layout>
+
+<style>
+	.noticia-detalle {
+		max-width: 760px;
+	}
+
+	.noticia-detalle__imagen {
+		border-radius: var(--radius);
+		margin-block: 1.5rem;
+	}
+
+	.noticia-detalle__cuerpo {
+		line-height: 1.75;
+		margin-bottom: 2rem;
+	}
+</style>
