@@ -33,9 +33,9 @@
 **Pendiente técnico, no bloqueante:**
 
 - **Baja / Fase 2** — Formulario de contacto/inscripción real por subsitio (patrón Web3Forms, como en Santa Isabel FM). Falta definir a qué email/WhatsApp debe llegar cada inscripción. Por ahora el "contacto" es un `mailto:`/WhatsApp genérico en el footer.
-- **Baja** — Dominio propio (hoy el sitio usa el subdominio `atalaias-rou.netlify.app` en `astro.config.mjs`/`netlify.toml`/sitemap/JSON-LD).
+- **Baja** — Dominio propio (hoy el sitio usa el subdominio `atalaiasrou.netlify.app` en `astro.config.mjs`/`netlify.toml`/sitemap/JSON-LD).
 - **Baja** — Evaluar reproductor persistente entre navegaciones (View Transitions + `transition:persist`) si en el uso real resulta molesto que la radio se corte al cambiar de página — decisión explícita de v1: no implementarlo todavía.
-- **Baja** — Confirmar número de WhatsApp y email reales del proyecto (`Footer.astro` tiene placeholders `598000000000` / `contacto@atalaias-rou.org`).
+- **Baja** — Confirmar número de WhatsApp y email reales del proyecto (`Footer.astro` tiene placeholders `598000000000` / `contacto@atalaiasrou.org`).
 
 ## Changelog resumido
 

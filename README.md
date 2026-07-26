@@ -30,7 +30,7 @@ Este proyecto **no incluye asistente de IA**, a diferencia de otros sitios del m
 ## Estructura del proyecto
 
 ```
-atalaias-rou/
+atalaiasrou/
 ├── CLAUDE.md / README.md / ROADMAP.md
 ├── astro.config.mjs / netlify.toml
 ├── public/
@@ -55,8 +55,8 @@ atalaias-rou/
 ## Instalación y desarrollo local
 
 ```bash
-git clone <url-del-repo>
-cd atalaias-rou
+git clone https://github.com/nestorhoracio/atalaiasrou.git
+cd atalaiasrou
 npm install
 npm run dev
 # → http://localhost:4321
@@ -118,7 +118,7 @@ Texto completo de la noticia en Markdown.
 
 ## Datos de contacto
 
-*Pendiente de confirmar con el Pastor Manoel Da Luz* — hoy `Footer.astro` tiene un WhatsApp y un email placeholder (`598000000000` / `contacto@atalaias-rou.org`). Reemplazar por los datos reales del proyecto.
+*Pendiente de confirmar con el Pastor Manoel Da Luz* — hoy `Footer.astro` tiene un WhatsApp y un email placeholder (`598000000000` / `contacto@atalaiasrou.org`). Reemplazar por los datos reales del proyecto.
 
 ---
 
