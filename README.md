@@ -3,6 +3,9 @@
 
 > Estado actual, changelog y próximos pasos: ver [ROADMAP.md](./ROADMAP.md)
 
+**Sitio en producción**: [atalaiasrou.netlify.app](https://atalaiasrou.netlify.app)
+**Repositorio**: [github.com/nestorhoracio/atalaiasrou](https://github.com/nestorhoracio/atalaiasrou)
+
 ---
 
 ## Sobre el proyecto
@@ -108,11 +111,9 @@ Texto completo de la noticia en Markdown.
 
 ## Deploy en Netlify
 
-1. Subir el repo a GitHub.
-2. En Netlify → "Add new site" → "Import from Git".
-3. Build command: `npm run build` — Publish directory: `dist` (ya configurado en `netlify.toml`).
-4. Cada push a la rama principal dispara un build y deploy automático.
-5. Cuando haya un dominio propio, configurarlo en Netlify y actualizar `site` en `astro.config.mjs`.
+El sitio ya está conectado: cada push a `main` dispara un build (`npm run build`, publish dir `dist`, ya configurado en `netlify.toml`) y lo deploya automáticamente en [atalaiasrou.netlify.app](https://atalaiasrou.netlify.app). No hace falta ningún paso manual para deployar — alcanza con pushear a `main`.
+
+Cuando haya un dominio propio, configurarlo en Netlify y actualizar `site` en `astro.config.mjs` y la URL del `Sitemap` en `public/robots.txt`.
 
 ---
 
