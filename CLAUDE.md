@@ -33,6 +33,7 @@ Sitio web de Atalaias Rou / IMTF Uruguay y Brasil. Portal que agrupa la transmis
 - `[data-theme]` / custom properties en `global.css` — no hardcodear colores nuevos fuera de esas variables
 - Placeholders de logo, fotos de pastores y fotos/videos de actividades — deben verse claramente como placeholders (siluetas, texto "pendiente"), nunca fotos de stock genéricas — pedido explícito del cliente de usar solo material fotográfico propio
 - `astro.config.mjs` (`site: '...netlify.app'`) y `netlify.toml` — afectan build/deploy en producción; actualizar `site` en cuanto haya dominio propio
+- **Repo**: [github.com/nestorhoracio/atalaiasrou](https://github.com/nestorhoracio/atalaiasrou) (público). **Sitio**: `atalaiasrou.netlify.app`, conectado vía la GitHub App de esta cuenta (`installation_id: 126678153`, el mismo que usan los demás proyectos). Si algún día hay que recrear el sitio de Netlify por API en vez de por la UI, crearlo con ese `installation_id` desde el principio — crear el sitio con un objeto `repo` simple (sin `installation_id`) hace que Netlify intente clonar por SSH con una deploy key propia y el build falla con "Host key verification failed" (pasó en la sesión inicial, se corrigió con un `PATCH /sites/{id}` agregando el `installation_id`)
 
 ## Comandos
 

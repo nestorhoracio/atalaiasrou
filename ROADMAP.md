@@ -14,6 +14,7 @@
 - **2026-07-26** — Subsitios `/uruguay/` (ES) y `/brasil/` (PT) completos: declaración de fe/historia, fotos, videos (embeds YouTube), horarios, últimas noticias
 - **2026-07-26** — Verificación visual con Playwright (capturas de las 9 páginas, toggle de tema, play/pause del reproductor) — se detectaron y corrigieron 2 bugs reales: (1) pausar el audio mostraba "Emisora temporalmente no disponible" por un evento `error` espurio al vaciar `audio.src`; (2) las fechas de noticias se mostraban un día antes por no fijar `timeZone: 'UTC'` en `Intl.DateTimeFormat`
 - **2026-07-26** — `netlify.toml`, `robots.txt`, sitemap verificado en build (`dist/sitemap-index.xml`)
+- **2026-07-26** — Proyecto renombrado a `atalaiasrou` (sin guion) en package.json/site/robots/placeholders; repo público creado en GitHub (`nestorhoracio/atalaiasrou`) y pusheado; sitio creado en Netlify (`atalaiasrou.netlify.app`) conectado al repo vía la GitHub App ya instalada en la cuenta (⚠️ crear el sitio por API con un objeto `repo` simple generó una conexión SSH que falló con "Host key verification failed" — hubo que hacer un `PATCH` al sitio agregando `installation_id: 126678153`, el mismo que usan los demás proyectos de esta cuenta, para que use la GitHub App en vez de una deploy key SSH). Deploy inicial verificado en `ready` y las rutas principales responden 200 en producción.
 
 ## En curso
 
