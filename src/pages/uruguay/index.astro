@@ -11,6 +11,7 @@ import Horarios from '../../components/subsite/Horarios.astro';
 import NoticiaCard from '../../components/noticias/NoticiaCard.astro';
 import { declaracionFe, historia, fotos, videoIdsYoutube } from '../../data/contenido-uruguay';
 import { horarios } from '../../data/horarios-uruguay';
+import { breadcrumbList } from '../../lib/seo';
 
 const ultimasNoticias = (await getCollection('noticias-uruguay', ({ data }) => !data.borrador && data.fecha <= new Date()))
 	.sort((a, b) => b.data.fecha.valueOf() - a.data.fecha.valueOf())
@@ -27,6 +28,12 @@ const ultimasNoticias = (await getCollection('noticias-uruguay', ({ data }) => !
 		areaServida: 'Uruguay',
 		padre: true,
 	}}
+	extraJsonLd={[
+		breadcrumbList(Astro.site!, [
+			{ name: 'Inicio', path: '/' },
+			{ name: 'IMTF Uruguay', path: '/uruguay/' },
+		]),
+	]}
 >
 	<Header lang="es" />
 	<SubsiteNav lang="es" base="/uruguay" activo="inicio" />

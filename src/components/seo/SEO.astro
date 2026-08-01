@@ -13,6 +13,7 @@ interface Props {
 	ogImage?: string;
 	tipo?: 'ReligiousOrganization' | 'Organization';
 	organizacion?: DatosOrganizacion;
+	extraJsonLd?: Record<string, unknown>[];
 }
 
 const {
@@ -22,12 +23,18 @@ const {
 	ogImage,
 	tipo = 'ReligiousOrganization',
 	organizacion,
+	extraJsonLd,
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
 // TODO: no hay og-image real todavía (pendiente logo del cliente) — sin default
 // para no referenciar una imagen rota en redes sociales.
 const imagenAbsoluta = ogImage ? new URL(ogImage, Astro.site) : null;
+
+// Mientras el sitio viva en el subdominio de Netlify no queremos que compita
+// en el buscador con el dominio propio el día de la migración. Se apaga solo
+// cuando `site` en astro.config.mjs pase a ser el dominio definitivo.
+const enDominioTemporal = Astro.site?.hostname.includes('netlify.app') ?? false;
 
 const jsonLd = organizacion
 	? {
@@ -47,6 +54,7 @@ const jsonLd = organizacion
 <title>{title}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
+{enDominioTemporal && <meta name="robots" content="noindex, nofollow" />}
 
 <meta property="og:type" content="website" />
 <meta property="og:title" content={title} />
@@ -61,3 +69,4 @@ const jsonLd = organizacion
 {imagenAbsoluta && <meta name="twitter:image" content={imagenAbsoluta} />}
 
 {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />}
+{extraJsonLd?.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} is:inline />)}

@@ -19,9 +19,10 @@ interface Props {
 		areaServida?: string;
 		padre?: boolean;
 	};
+	extraJsonLd?: Record<string, unknown>[];
 }
 
-const { title, description, lang = 'es', ogImage, tipo, organizacion } = Astro.props;
+const { title, description, lang = 'es', ogImage, tipo, organizacion, extraJsonLd } = Astro.props;
 ---
 
 <!doctype html>
@@ -31,7 +32,15 @@ const { title, description, lang = 'es', ogImage, tipo, organizacion } = Astro.p
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
-		<SEO title={title} description={description} lang={lang} ogImage={ogImage} tipo={tipo} organizacion={organizacion} />
+		<SEO
+			title={title}
+			description={description}
+			lang={lang}
+			ogImage={ogImage}
+			tipo={tipo}
+			organizacion={organizacion}
+			extraJsonLd={extraJsonLd}
+		/>
 
 		<script is:inline>
 			// Anti-FOUC: aplica el tema guardado antes del primer render.

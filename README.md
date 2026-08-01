@@ -45,13 +45,15 @@ atalaiasrou/
     │   ├── noticias-uruguay/*.md
     │   └── noticias-brasil/*.md
     ├── data/              # radios, pastores, horarios, contenido institucional general (UY/BR) y de "Proyecto Atalaias Rou"
+    ├── lib/seo.ts          # helpers de JSON-LD (breadcrumbs, RadioStation)
     ├── layouts/Layout.astro
     ├── components/
     │   ├── seo/, layout/, home/, radios/, institucional/, noticias/, subsite/
     └── pages/
         ├── index.astro, institucional.astro, 404.astro
         ├── uruguay/       # subsitio en español
-        └── brasil/        # subsitio en portugués
+        ├── brasil/        # subsitio en portugués
+        └── radios/[slug].astro  # página propia por cada radio (SEO), la reproducción sigue siendo en la home
 ```
 
 ---
@@ -102,7 +104,7 @@ borrador: false                                              # true = no se publ
 Texto completo de la noticia en Markdown.
 ```
 
-**Una radio nueva**: editar el array `radios` en `src/data/radios.ts` — completar `streamUrl` con la URL HTTPS del stream (una radio con `streamUrl: null` se muestra como "Próximamente").
+**Una radio nueva**: editar el array `radios` en `src/data/radios.ts` — completar `streamUrl` con la URL HTTPS del stream (una radio con `streamUrl: null` se muestra como "Próximamente"). No hace falta ningún paso extra: la tarjeta en la home y su página propia en `/radios/{id}/` (con su SEO y JSON-LD `RadioStation`) se generan solas a partir de esa misma entrada.
 
 **Un pastor nuevo**: editar el array `pastores` en `src/data/pastores.ts`.
 
@@ -116,7 +118,7 @@ Texto completo de la noticia en Markdown.
 
 El sitio ya está conectado: cada push a `main` dispara un build (`npm run build`, publish dir `dist`, ya configurado en `netlify.toml`) y lo deploya automáticamente en [atalaiasrou.netlify.app](https://atalaiasrou.netlify.app). No hace falta ningún paso manual para deployar — alcanza con pushear a `main`.
 
-Cuando haya un dominio propio, configurarlo en Netlify y actualizar `site` en `astro.config.mjs` y la URL del `Sitemap` en `public/robots.txt`.
+Cuando haya un dominio propio, configurarlo en Netlify y actualizar `site` en `astro.config.mjs` y la URL del `Sitemap` en `public/robots.txt`. El sitio hoy se sirve con `<meta name="robots" content="noindex, nofollow">` en todas las páginas (para no competir con el dominio propio mientras esté en `atalaiasrou.netlify.app`) — se apaga solo al actualizar `site`, no requiere ningún otro cambio.
 
 ---
 

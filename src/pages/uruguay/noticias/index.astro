@@ -5,13 +5,25 @@ import Header from '../../../components/layout/Header.astro';
 import Footer from '../../../components/layout/Footer.astro';
 import SubsiteNav from '../../../components/subsite/SubsiteNav.astro';
 import NoticiaCard from '../../../components/noticias/NoticiaCard.astro';
+import { breadcrumbList } from '../../../lib/seo';
 
 const noticias = (await getCollection('noticias-uruguay', ({ data }) => !data.borrador && data.fecha <= new Date())).sort(
 	(a, b) => b.data.fecha.valueOf() - a.data.fecha.valueOf()
 );
 ---
 
-<Layout title="Noticias — IMTF Uruguay" description="Novedades y noticias del proyecto IMTF Uruguay." lang="es">
+<Layout
+	title="Noticias — IMTF Uruguay"
+	description="Novedades y noticias del proyecto IMTF Uruguay."
+	lang="es"
+	extraJsonLd={[
+		breadcrumbList(Astro.site!, [
+			{ name: 'Inicio', path: '/' },
+			{ name: 'IMTF Uruguay', path: '/uruguay/' },
+			{ name: 'Noticias', path: '/uruguay/noticias/' },
+		]),
+	]}
+>
 	<Header />
 	<SubsiteNav lang="es" base="/uruguay" activo="noticias" />
 

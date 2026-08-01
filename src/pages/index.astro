@@ -6,6 +6,8 @@ import Hero from '../components/home/Hero.astro';
 import RadioGrid from '../components/radios/RadioGrid.astro';
 import RadioPlayer from '../components/radios/RadioPlayer.astro';
 import TeaserInstitucional from '../components/home/TeaserInstitucional.astro';
+import { radios } from '../data/radios';
+import { radioStationList } from '../lib/seo';
 ---
 
 <Layout
@@ -15,6 +17,7 @@ import TeaserInstitucional from '../components/home/TeaserInstitucional.astro';
 		nombre: 'Atalaias Rou / IMTF Uruguay y Brasil',
 		descripcion: 'Ministerio evangélico que agrupa la transmisión de radios cristianas y proyectos de predicación y acción social en Uruguay y Brasil.',
 	}}
+	extraJsonLd={[radioStationList(Astro.site!, radios)]}
 >
 	<Header />
 	<Hero />

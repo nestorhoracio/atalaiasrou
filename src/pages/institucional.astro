@@ -4,6 +4,7 @@ import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
 import PastoresGrid from '../components/institucional/PastoresGrid.astro';
 import QuienesSomos from '../components/institucional/QuienesSomos.astro';
+import { breadcrumbList } from '../lib/seo';
 ---
 
 <Layout
@@ -13,6 +14,12 @@ import QuienesSomos from '../components/institucional/QuienesSomos.astro';
 		nombre: 'Atalaias Rou / IMTF Uruguay y Brasil',
 		padre: true,
 	}}
+	extraJsonLd={[
+		breadcrumbList(Astro.site!, [
+			{ name: 'Inicio', path: '/' },
+			{ name: 'Institucional', path: '/institucional/' },
+		]),
+	]}
 >
 	<Header />
 

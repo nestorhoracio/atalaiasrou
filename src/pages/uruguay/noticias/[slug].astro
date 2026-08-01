@@ -4,6 +4,7 @@ import Layout from '../../../layouts/Layout.astro';
 import Header from '../../../components/layout/Header.astro';
 import Footer from '../../../components/layout/Footer.astro';
 import SubsiteNav from '../../../components/subsite/SubsiteNav.astro';
+import { breadcrumbList } from '../../../lib/seo';
 
 export async function getStaticPaths() {
 	const noticias = await getCollection('noticias-uruguay');
@@ -22,7 +23,19 @@ const fechaFormateada = new Intl.DateTimeFormat('es-UY', {
 }).format(entry.data.fecha);
 ---
 
-<Layout title={`${entry.data.titulo} — IMTF Uruguay`} description={entry.data.resumen} lang="es">
+<Layout
+	title={`${entry.data.titulo} — IMTF Uruguay`}
+	description={entry.data.resumen}
+	lang="es"
+	extraJsonLd={[
+		breadcrumbList(Astro.site!, [
+			{ name: 'Inicio', path: '/' },
+			{ name: 'IMTF Uruguay', path: '/uruguay/' },
+			{ name: 'Noticias', path: '/uruguay/noticias/' },
+			{ name: entry.data.titulo, path: `/uruguay/noticias/${entry.id}/` },
+		]),
+	]}
+>
 	<Header />
 	<SubsiteNav lang="es" base="/uruguay" activo="noticias" />
 

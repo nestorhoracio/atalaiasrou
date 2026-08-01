@@ -11,6 +11,7 @@ import Horarios from '../../components/subsite/Horarios.astro';
 import NoticiaCard from '../../components/noticias/NoticiaCard.astro';
 import { declaracaoDeFe, historia, fotos, videoIdsYoutube } from '../../data/contenido-brasil';
 import { horarios as horariosBrasil } from '../../data/horarios-brasil';
+import { breadcrumbList } from '../../lib/seo';
 
 const horarios = horariosBrasil.map((h) => ({ actividad: h.atividade, dia: h.dia, hora: h.hora }));
 
@@ -29,6 +30,12 @@ const ultimasNoticias = (await getCollection('noticias-brasil', ({ data }) => !d
 		areaServida: 'Brasil',
 		padre: true,
 	}}
+	extraJsonLd={[
+		breadcrumbList(Astro.site!, [
+			{ name: 'Inicio', path: '/' },
+			{ name: 'IMTF Brasil', path: '/brasil/' },
+		]),
+	]}
 >
 	<Header lang="pt" />
 	<SubsiteNav lang="pt" base="/brasil" activo="inicio" />

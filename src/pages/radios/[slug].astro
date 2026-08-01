@@ -1,0 +1,143 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+import { radios, estaDisponible } from '../../data/radios';
+import { breadcrumbList, radioStation } from '../../lib/seo';
+
+export async function getStaticPaths() {
+	return radios.map((radio) => ({ params: { slug: radio.id }, props: { radio } }));
+}
+
+const { radio } = Astro.props;
+const disponible = estaDisponible(radio);
+const lang = radio.pais === 'BR' ? 'pt' : 'es';
+
+const paisTexto = {
+	UY: { es: 'Uruguay', pt: 'Uruguai' },
+	BR: { es: 'Brasil', pt: 'Brasil' },
+	Otro: { es: 'la región', pt: 'a região' },
+}[radio.pais ?? 'Otro'][lang];
+
+const textos = {
+	es: {
+		inicio: 'Inicio',
+		titulo: `${radio.nombre} en vivo — Atalaias Rou`,
+		descripcion: `Escuchá ${radio.nombre} en vivo, parte del portal de radios cristianas de Atalaias Rou / IMTF ${paisTexto}. Programación evangélica los 7 días de la semana.`,
+		etiqueta: 'Radio en vivo',
+		h1: `Escuchá ${radio.nombre} en vivo`,
+		bajada: 'Transmisión cristiana en vivo, parte del portal de radios de Atalaias Rou / IMTF Uruguay y Brasil.',
+		escuchar: 'Escuchar en vivo',
+		proximamente: 'Próximamente',
+		volver: '← Ver todas las radios',
+	},
+	pt: {
+		inicio: 'Início',
+		titulo: `${radio.nombre} ao vivo — Atalaias Rou`,
+		descripcion: `Ouça ${radio.nombre} ao vivo, parte do portal de rádios cristãs de Atalaias Rou / IMTF ${paisTexto}. Programação evangélica todos os dias da semana.`,
+		etiqueta: 'Rádio ao vivo',
+		h1: `Ouça ${radio.nombre} ao vivo`,
+		bajada: 'Transmissão cristã ao vivo, parte do portal de rádios de Atalaias Rou / IMTF Uruguai e Brasil.',
+		escuchar: 'Ouvir ao vivo',
+		proximamente: 'Em breve',
+		volver: '← Ver todas as rádios',
+	},
+}[lang];
+---
+
+<Layout
+	title={textos.titulo}
+	description={textos.descripcion}
+	lang={lang}
+	extraJsonLd={[
+		radioStation(Astro.site!, radio),
+		breadcrumbList(Astro.site!, [
+			{ name: textos.inicio, path: '/' },
+			{ name: radio.nombre, path: `/radios/${radio.id}/` },
+		]),
+	]}
+>
+	<Header lang={lang} />
+
+	<header class="seccion contenedor" style="text-align: center;">
+		<p class="etiqueta">{textos.etiqueta}</p>
+		<h1>{textos.h1}</h1>
+		<p style="color: var(--text-soft); max-width: 60ch; margin-inline: auto;">{textos.bajada}</p>
+	</header>
+
+	<section class="seccion contenedor" style="padding-top: 0;">
+		<div class="radio-detalle tarjeta">
+			<div class="radio-detalle__logo">
+				{radio.logo ? <img src={radio.logo} alt={`Logo de ${radio.nombre}`} /> : <span aria-hidden="true">{radio.nombre.charAt(0)}</span>}
+			</div>
+
+			<p class="radio-detalle__nombre">{radio.nombre}</p>
+			{radio.pais && <p class="radio-detalle__pais">{paisTexto}</p>}
+
+			{
+				disponible ? (
+					<a class="boton boton--dorado" href={`/#${radio.id}`}>
+						{textos.escuchar}
+					</a>
+				) : (
+					<span class="radio-detalle__etiqueta">{textos.proximamente}</span>
+				)
+			}
+		</div>
+
+		<p style="text-align: center; margin-top: 2rem;">
+			<a href="/#radios">{textos.volver}</a>
+		</p>
+	</section>
+
+	<Footer lang={lang} />
+</Layout>
+
+<style>
+	.radio-detalle {
+		max-width: 420px;
+		margin-inline: auto;
+		padding: 2.5rem;
+		text-align: center;
+	}
+
+	.radio-detalle__logo {
+		width: 120px;
+		height: 120px;
+		margin-inline: auto;
+		margin-bottom: 1.25rem;
+		border-radius: 999px;
+		background: var(--secondary-dim);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+	}
+
+	.radio-detalle__logo img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.radio-detalle__nombre {
+		font-family: 'Montserrat Variable', 'Montserrat', system-ui, sans-serif;
+		font-weight: 700;
+		font-size: var(--fs-lg);
+		margin: 0;
+	}
+
+	.radio-detalle__pais {
+		color: var(--text-soft);
+		margin: 0.25rem 0 1.5rem;
+	}
+
+	.radio-detalle__etiqueta {
+		display: inline-block;
+		color: var(--text-faint);
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		font-size: 0.8rem;
+		font-weight: 700;
+	}
+</style>

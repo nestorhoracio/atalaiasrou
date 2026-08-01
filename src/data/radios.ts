@@ -92,8 +92,11 @@ export const radios: Radio[] = [
 	{
 		id: 'radio-atalaias-sion',
 		nombre: 'Radio Atalaias Sion',
-		streamUrl: null, // TODO: sacar la URL cruda inspeccionando la red del reproductor en radioatalaiassion.radiostream321.com
+		// URL cruda extraída del HTML de radioatalaiassion.radiostream321.com (div#urladdress
+		// que su propio JS pasa directo al reproductor) y confirmada en vivo por Néstor 2026-08-01.
+		streamUrl: 'https://uk7freenew.listen2myradio.com/live.mp3?typeportmount=s1_25749_stream_814607405',
 		pais: 'UY',
+		descripcion: 'Plataforma listen2myradio.com (no Zeno).',
 		logo: '/images/radios/radio-atalaias-sion.webp',
 	},
 	{
@@ -152,9 +155,14 @@ export const radios: Radio[] = [
 	{
 		id: 'radio-atalaias-sc',
 		nombre: 'Radio Atalaias SC',
-		streamUrl: null, // TODO: plataforma de 3 canales (listen2myradio.com) sin URL cruda confirmada — inspeccionar con navegador real
+		// URL cruda extraída del HTML de atalaiassc.radiostream321.com (mismo patrón que Sion:
+		// div#urladdress que el JS del sitio pasa directo al reproductor). Verificada por acá
+		// 2026-08-01: responde protocolo Shoutcast v1 (cabecera "ICY 200 OK", icy-name:"Radio
+		// Atalaias SC") con audio MP3 real. La página solo expone un stream — no encontramos
+		// evidencia de "3 canales" pese a la nota anterior, puede haber sido una confusión.
+		streamUrl: 'https://uk3freenew.listen2myradio.com/live.mp3?typeportmount=s1_8216_stream_731028910',
 		pais: 'BR',
-		descripcion: 'Plataforma con 3 canales (listen2myradio.com), sin protocolo https:// directo confirmado todavía.',
+		descripcion: 'Plataforma listen2myradio.com (no Zeno).',
 		logo: '/images/radios/radio-atalaias-sc.webp',
 	},
 	{
