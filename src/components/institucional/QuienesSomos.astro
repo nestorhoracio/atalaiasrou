@@ -1,0 +1,242 @@
+---
+import {
+	presentacion,
+	historia,
+	mision,
+	vision,
+	valores,
+	areasTrabajo,
+	proyectosVinculados,
+	organigrama,
+	fundamentoBiblico,
+	lema,
+} from '../../data/contenido-institucional';
+---
+
+<div class="quienes-somos">
+	<div class="quienes-somos__bloque">
+		<h2>Presentación</h2>
+		<p>{presentacion}</p>
+	</div>
+
+	<div class="quienes-somos__bloque">
+		<h2>Nuestra historia</h2>
+		<p>{historia}</p>
+	</div>
+
+	<div class="quienes-somos__par">
+		<div>
+			<h2>Misión</h2>
+			<p>{mision}</p>
+		</div>
+		<div>
+			<h2>Visión</h2>
+			<p>{vision}</p>
+		</div>
+	</div>
+
+	<div class="quienes-somos__bloque">
+		<h2>Valores</h2>
+		<ul class="quienes-somos__lista">
+			{valores.map((valor) => <li>{valor}</li>)}
+		</ul>
+	</div>
+
+	<div class="quienes-somos__bloque">
+		<h2>Áreas de trabajo</h2>
+		<div class="quienes-somos__areas">
+			{
+				areasTrabajo.map((area) => (
+					<div class="tarjeta quienes-somos__area">
+						<p class="quienes-somos__area-titulo">{area.titulo}</p>
+						<p>{area.descripcion}</p>
+					</div>
+				))
+			}
+		</div>
+	</div>
+
+	<div class="quienes-somos__bloque">
+		<h2>Proyectos vinculados</h2>
+		<p>{proyectosVinculados}</p>
+	</div>
+
+	<div class="quienes-somos__bloque">
+		<h2>Organigrama</h2>
+		<div class="quienes-somos__organigrama">
+			{
+				organigrama.map((item) => (
+					<div class="tarjeta quienes-somos__org-item">
+						<p class="quienes-somos__org-rol">{item.rol}</p>
+						<p class="quienes-somos__org-nombre">{item.nombre}</p>
+					</div>
+				))
+			}
+		</div>
+	</div>
+
+	<div class="quienes-somos__bloque">
+		<h2>Fundamento bíblico</h2>
+		<div class="quienes-somos__citas">
+			{
+				fundamentoBiblico.map((cita) => (
+					<blockquote>
+						<p>“{cita.texto}”</p>
+						<cite>{cita.referencia}</cite>
+					</blockquote>
+				))
+			}
+		</div>
+	</div>
+
+	<div class="quienes-somos__lema">
+		<p class="quienes-somos__lema-es">"{lema.es}"</p>
+		<p class="quienes-somos__lema-pt" lang="pt-BR">"{lema.pt}"</p>
+	</div>
+</div>
+
+<style>
+	.quienes-somos {
+		display: flex;
+		flex-direction: column;
+		gap: 2.5rem;
+		text-align: center;
+	}
+
+	.quienes-somos__bloque p,
+	.quienes-somos__par p {
+		color: var(--text-soft);
+		line-height: 1.75;
+		max-width: 68ch;
+		margin-inline: auto;
+	}
+
+	.quienes-somos__par {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 2rem;
+	}
+
+	.quienes-somos__lista {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+		gap: 0.6rem 1.5rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		color: var(--text-soft);
+	}
+
+	.quienes-somos__areas {
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
+		gap: 1.25rem;
+	}
+
+	@media (max-width: 980px) {
+		.quienes-somos__areas {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	@media (max-width: 640px) {
+		.quienes-somos__areas {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (max-width: 420px) {
+		.quienes-somos__areas {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.quienes-somos__area {
+		padding: 1.25rem;
+	}
+
+	.quienes-somos__area-titulo {
+		font-weight: 800;
+		color: var(--accent);
+		margin: 0 0 0.4rem;
+	}
+
+	.quienes-somos__area p:last-child {
+		margin: 0;
+		color: var(--text-soft);
+	}
+
+	.quienes-somos__organigrama {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1.25rem;
+	}
+
+	@media (max-width: 900px) {
+		.quienes-somos__organigrama {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (max-width: 480px) {
+		.quienes-somos__organigrama {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.quienes-somos__org-item {
+		padding: 1.25rem;
+	}
+
+	.quienes-somos__org-rol {
+		font-weight: 800;
+		color: var(--secondary);
+		margin: 0 0 0.4rem;
+	}
+
+	.quienes-somos__org-nombre {
+		margin: 0;
+		color: var(--text-soft);
+	}
+
+	.quienes-somos__citas {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+		gap: 1.5rem;
+	}
+
+	.quienes-somos__citas blockquote {
+		margin: 0;
+		padding: 1.25rem;
+		border-top: 3px solid var(--accent-fill);
+		background: var(--surface-2);
+		border-radius: var(--radius);
+	}
+
+	.quienes-somos__citas p {
+		font-family: 'Lora', Georgia, serif;
+		font-style: italic;
+		margin: 0 0 0.5rem;
+	}
+
+	.quienes-somos__citas cite {
+		font-style: normal;
+		font-weight: 700;
+		font-size: 0.85rem;
+		color: var(--text-faint);
+	}
+
+	.quienes-somos__lema {
+		text-align: center;
+		padding-block: 1rem;
+	}
+
+	.quienes-somos__lema p {
+		font-family: 'Lora', Georgia, serif;
+		font-style: italic;
+		font-size: 1.3rem;
+		font-weight: 700;
+		margin: 0 0 0.25rem;
+		color: var(--secondary);
+	}
+</style>

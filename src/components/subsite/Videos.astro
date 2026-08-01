@@ -14,10 +14,10 @@ const textos = {
 const t = textos[lang];
 ---
 
-<section id="videos" class="seccion contenedor">
+<section id="videos" class="seccion contenedor" style="text-align: center;">
 	<h2>{t.titulo}</h2>
 	{videoIds.length === 0 ? (
-		<p style="color: var(--text-muted);">{t.vacio}</p>
+		<p style="color: var(--text-soft);">{t.vacio}</p>
 	) : (
 		<div class="videos-grid">
 			{videoIds.map((id) => (

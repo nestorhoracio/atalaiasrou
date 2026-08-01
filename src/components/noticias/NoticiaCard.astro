@@ -41,6 +41,7 @@ const fechaFormateada = new Intl.DateTimeFormat(lang === 'pt' ? 'pt-BR' : 'es-UY
 		text-decoration: none;
 		color: var(--text);
 		overflow: hidden;
+		text-align: center;
 	}
 
 	.noticia-card__imagen {
@@ -62,7 +63,7 @@ const fechaFormateada = new Intl.DateTimeFormat(lang === 'pt' ? 'pt-BR' : 'es-UY
 	.noticia-card__fecha {
 		margin: 0 0 0.4rem;
 		font-size: 0.8rem;
-		color: var(--dorado);
+		color: var(--accent);
 		font-weight: 700;
 		text-transform: uppercase;
 		letter-spacing: 0.04em;
@@ -70,12 +71,12 @@ const fechaFormateada = new Intl.DateTimeFormat(lang === 'pt' ? 'pt-BR' : 'es-UY
 
 	.noticia-card__titulo {
 		margin: 0 0 0.5rem;
-		font-size: 1.1rem;
+		font-size: var(--fs-lg);
 	}
 
 	.noticia-card__resumen {
 		margin: 0;
-		color: var(--text-muted);
+		color: var(--text-soft);
 		font-size: 0.95rem;
 	}
 </style>

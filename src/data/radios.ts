@@ -9,39 +9,162 @@ export interface Radio {
 }
 
 /**
- * TODO (prioridad alta, ver ROADMAP.md): completar las 20 emisoras con sus
- * URLs de streaming reales (HTTPS). Conseguir la URL del stream crudo de cada
- * radio suele requerir inspeccionar la pestaña de red del navegador en el
- * reproductor embebido del sitio de cada emisora — no siempre está publicada
- * como enlace directo.
+ * Datos reales recibidos del Pastor Manoel Da Luz (Excel "Listado-Radios-Atalaias.xlsx",
+ * 2026-08-01). 18 de las 20 emisoras tienen stream HTTPS confirmado.
+ *
+ * `radio-atalaias-sion` y `radio-atalaias-sc` quedan con `streamUrl: null`: sus dominios
+ * (radiostream321.com / radio12345.com / radiostream123.com, plataforma listen2myradio.com)
+ * sirven una página HTML embebida, no el stream crudo — hace falta inspeccionar la pestaña
+ * de red de un navegador real para sacar la URL directa (ver nota de hotlink/User-Agent
+ * más abajo). No publicar su tarjeta como disponible hasta confirmarlo.
  */
 export const radios: Radio[] = [
 	{
-		id: 'radio-prueba',
-		nombre: 'Radio de prueba (Radio Paradise)',
-		streamUrl: 'https://stream.radioparadise.com/mp3-192',
-		pais: 'Otro',
-		descripcion: 'Stream de prueba genérico para validar el reproductor — NO es una radio evangélica ni contenido final del proyecto. Reemplazar por la primera emisora real. (Nota: se descartó SomaFM como fixture porque bloquea con HTTP 403 cualquier User-Agent de navegador, es decir, bloquea el hotlinking desde sitios de terceros — algo a tener en cuenta también al conseguir las URLs reales de las 20 emisoras.)',
+		id: 'radio-atalaias-rou',
+		nombre: 'Radio Atalaias Rou',
+		streamUrl: 'https://stream.zeno.fm/v9o0lzd1poqvv',
+		pais: 'UY',
+		logo: '/images/radios/radio-atalaias-rou.webp',
 	},
-	{ id: 'radio-02', nombre: 'Radio 02', streamUrl: null }, // TODO: URL pendiente
-	{ id: 'radio-03', nombre: 'Radio 03', streamUrl: null }, // TODO: URL pendiente
-	{ id: 'radio-04', nombre: 'Radio 04', streamUrl: null }, // TODO: URL pendiente
-	{ id: 'radio-05', nombre: 'Radio 05', streamUrl: null }, // TODO: URL pendiente
-	{ id: 'radio-06', nombre: 'Radio 06', streamUrl: null }, // TODO: URL pendiente
-	{ id: 'radio-07', nombre: 'Radio 07', streamUrl: null }, // TODO: URL pendiente
-	{ id: 'radio-08', nombre: 'Radio 08', streamUrl: null }, // TODO: URL pendiente
-	{ id: 'radio-09', nombre: 'Radio 09', streamUrl: null }, // TODO: URL pendiente
-	{ id: 'radio-10', nombre: 'Radio 10', streamUrl: null }, // TODO: URL pendiente
-	{ id: 'radio-11', nombre: 'Radio 11', streamUrl: null }, // TODO: URL pendiente
-	{ id: 'radio-12', nombre: 'Radio 12', streamUrl: null }, // TODO: URL pendiente
-	{ id: 'radio-13', nombre: 'Radio 13', streamUrl: null }, // TODO: URL pendiente
-	{ id: 'radio-14', nombre: 'Radio 14', streamUrl: null }, // TODO: URL pendiente
-	{ id: 'radio-15', nombre: 'Radio 15', streamUrl: null }, // TODO: URL pendiente
-	{ id: 'radio-16', nombre: 'Radio 16', streamUrl: null }, // TODO: URL pendiente
-	{ id: 'radio-17', nombre: 'Radio 17', streamUrl: null }, // TODO: URL pendiente
-	{ id: 'radio-18', nombre: 'Radio 18', streamUrl: null }, // TODO: URL pendiente
-	{ id: 'radio-19', nombre: 'Radio 19', streamUrl: null }, // TODO: URL pendiente
-	{ id: 'radio-20', nombre: 'Radio 20', streamUrl: null }, // TODO: URL pendiente
+	{
+		id: 'radio-atalaias-leon',
+		nombre: 'Radio Atalaias Leon',
+		streamUrl: 'https://stream.zeno.fm/pu6fn1xnr0hvv',
+		pais: 'UY',
+		logo: '/images/radios/radio-atalaias-leon.webp',
+	},
+	{
+		id: 'radio-atalaias-gold',
+		nombre: 'Radio Atalaias Gold',
+		streamUrl: 'https://stream.zeno.fm/kcdtmg27kuhvv',
+		pais: 'UY',
+		logo: '/images/radios/radio-atalaias-gold.webp',
+	},
+	{
+		id: 'radio-atalaias-channel',
+		nombre: 'Radio Atalaias Channel',
+		streamUrl: 'https://stream.zeno.fm/5z4w6tp5muhvv',
+		pais: 'UY',
+		logo: '/images/radios/radio-atalaias-channel.webp',
+	},
+	{
+		id: 'radio-atalaias-ebenezer',
+		nombre: 'Radio Atalaias Ebenezer',
+		streamUrl: 'https://stream.zeno.fm/cbdqtlyqutnvv',
+		pais: 'UY',
+		logo: '/images/radios/radio-atalaias-ebenezer.webp',
+	},
+	{
+		id: 'radio-atalaias-el-shaddai',
+		nombre: 'Radio Atalaias El Shaddai',
+		streamUrl: 'https://stream.zeno.fm/fnf0xody53zuv',
+		pais: 'UY',
+		logo: '/images/radios/radio-atalaias-el-shaddai.webp',
+	},
+	{
+		id: 'radio-atalaias-vida',
+		nombre: 'Radio Atalaias Vida',
+		streamUrl: 'https://stream.zeno.fm/yhwej1kh3dwuv',
+		pais: 'UY',
+		logo: '/images/radios/radio-atalaias-vida.webp',
+	},
+	{
+		id: 'radio-atalaias-inter',
+		nombre: 'Radio Atalaias Inter',
+		streamUrl: 'https://stream.zeno.fm/h799x3r7cxhvv',
+		pais: 'UY',
+		logo: '/images/radios/radio-atalaias-inter.webp',
+	},
+	{
+		id: 'radio-atalaias-america',
+		nombre: 'Radio Atalaias America',
+		streamUrl: 'https://stream.zeno.fm/6uyrhgpkfyltv',
+		pais: 'UY',
+		logo: '/images/radios/radio-atalaias-america.webp',
+	},
+	{
+		id: 'radio-atalaias-el-predicador',
+		nombre: 'Radio Atalaias El Predicador',
+		streamUrl: 'https://stream.zeno.fm/gderclzwsebvv',
+		pais: 'UY',
+		logo: '/images/radios/radio-atalaias-el-predicador.webp',
+	},
+	{
+		id: 'radio-atalaias-sion',
+		nombre: 'Radio Atalaias Sion',
+		streamUrl: null, // TODO: sacar la URL cruda inspeccionando la red del reproductor en radioatalaiassion.radiostream321.com
+		pais: 'UY',
+		logo: '/images/radios/radio-atalaias-sion.webp',
+	},
+	{
+		id: 'radio-atalaias-blue',
+		nombre: 'Radio Atalaias Blue',
+		streamUrl: 'https://261962.caster.fm/',
+		pais: 'UY',
+		descripcion: 'Plataforma Caster.fm (no Zeno).',
+		logo: '/images/radios/radio-atalaias-blue.webp',
+	},
+	{
+		id: 'radio-atalaias-soft',
+		nombre: 'Radio Atalaias Soft',
+		streamUrl: 'https://stream.zeno.fm/2gc616ztpc9uv',
+		pais: 'BR',
+		logo: '/images/radios/radio-atalaias-soft.webp',
+	},
+	{
+		id: 'radio-atalaias-universo',
+		nombre: 'Radio Atalaias Universo',
+		streamUrl: 'https://stream.zeno.fm/tpzx2mdypuhvv',
+		pais: 'BR',
+		logo: '/images/radios/radio-atalaias-universo.webp',
+	},
+	{
+		id: 'radio-atalaias-mundo',
+		nombre: 'Radio Atalaias Mundo',
+		streamUrl: 'https://stream.zeno.fm/n3s14cwc1rhvv',
+		pais: 'BR',
+		logo: '/images/radios/radio-atalaias-mundo.webp',
+	},
+	{
+		id: 'radio-atalaias-genesis',
+		nombre: 'Radio Atalaias Genesis',
+		streamUrl: 'https://stream.zeno.fm/crl430sxlq5vv',
+		pais: 'BR',
+		logo: '/images/radios/radio-atalaias-genesis.webp',
+	},
+	{
+		id: 'radio-atalaias-americana',
+		nombre: 'Radio Atalaias Americana',
+		streamUrl: 'https://stream.zeno.fm/61tbbyecxnhvv',
+		pais: 'BR',
+		logo: '/images/radios/radio-atalaias-americana.webp',
+	},
+	{
+		id: 'radio-atalaias-continental',
+		nombre: 'Radio Atalaias Continental',
+		// Marcada "REVISAR URL" en el Excel del cliente, pero verificado en vivo
+		// (2026-08-01): responde con el mismo patrón 302 -> CDN de SurferNetwork
+		// que las emisoras Zeno.fm ya confirmadas. Se da por válida.
+		streamUrl: 'https://stream.zeno.fm/lxcaruzt0jqtv',
+		pais: 'BR',
+		logo: '/images/radios/radio-atalaias-continental.webp',
+	},
+	{
+		id: 'radio-atalaias-sc',
+		nombre: 'Radio Atalaias SC',
+		streamUrl: null, // TODO: plataforma de 3 canales (listen2myradio.com) sin URL cruda confirmada — inspeccionar con navegador real
+		pais: 'BR',
+		descripcion: 'Plataforma con 3 canales (listen2myradio.com), sin protocolo https:// directo confirmado todavía.',
+		logo: '/images/radios/radio-atalaias-sc.webp',
+	},
+	{
+		id: 'radio-atalaias-mndaluz',
+		nombre: 'Radio Atalaias Mndaluz',
+		streamUrl: 'https://2611962.caster.fm/',
+		pais: 'BR',
+		descripcion: 'Plataforma Caster.fm (no Zeno).',
+		logo: '/images/radios/radio-atalaias-mndaluz.webp',
+	},
 ];
 
 export function esHttps(url: string | null | undefined): boolean {

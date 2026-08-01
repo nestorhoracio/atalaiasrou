@@ -19,10 +19,10 @@ const textos = {
 const t = textos[lang];
 ---
 
-<section id="fotos" class="seccion contenedor">
+<section id="fotos" class="seccion contenedor" style="text-align: center;">
 	<h2>{t.titulo}</h2>
 	{fotos.length === 0 ? (
-		<p style="color: var(--text-muted);">{t.vacio}</p>
+		<p style="color: var(--text-soft);">{t.vacio}</p>
 	) : (
 		<div class="galeria-grid">
 			{fotos.map((foto) => (

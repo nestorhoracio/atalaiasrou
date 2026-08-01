@@ -14,6 +14,7 @@ const textos = {
 		institucional: 'Institucional',
 		proyectos: 'Proyectos',
 		derechos: `© ${anio} Atalaias Rou / IMTF Uruguay y Brasil. Todos los derechos reservados.`,
+		desarrollado: 'Desarrollado por',
 	},
 	pt: {
 		contacto: 'Contato',
@@ -22,14 +23,15 @@ const textos = {
 		institucional: 'Institucional',
 		proyectos: 'Projetos',
 		derechos: `© ${anio} Atalaias Rou / IMTF Uruguai e Brasil. Todos os direitos reservados.`,
+		desarrollado: 'Desenvolvido por',
 	},
 } as const;
 
 const t = textos[lang];
 
-// TODO: reemplazar por el número de WhatsApp y el correo reales del proyecto.
-const WHATSAPP = '598000000000';
-const EMAIL = 'contacto@atalaiasrou.org';
+// Datos reales del Pastor Manoel Da Luz (aparecen en todo el material gráfico del cliente).
+const WHATSAPP = '59894673103';
+const EMAIL = 'mndaluz@hotmail.com';
 ---
 
 <footer id="contacto" class="footer">
@@ -57,6 +59,10 @@ const EMAIL = 'contacto@atalaiasrou.org';
 
 	<div class="contenedor footer__legal">
 		<p>{t.derechos}</p>
+		<p class="footer__credito">
+			{t.desarrollado}
+			<a href="https://nestorhoracio.com" target="_blank" rel="noopener noreferrer">NH Digital Space</a>
+		</p>
 	</div>
 </footer>
 
@@ -75,14 +81,14 @@ const EMAIL = 'contacto@atalaiasrou.org';
 	}
 
 	.footer__marca {
-		font-family: 'Fraunces', serif;
+		font-family: 'Montserrat Variable', 'Montserrat', system-ui, sans-serif;
 		font-weight: 700;
-		font-size: 1.2rem;
+		font-size: 1.35rem;
 		margin: 0 0 0.25rem;
 	}
 
 	.footer__descripcion {
-		color: var(--text-muted);
+		color: var(--text-soft);
 		margin: 0;
 	}
 
@@ -91,13 +97,13 @@ const EMAIL = 'contacto@atalaiasrou.org';
 		text-transform: uppercase;
 		font-size: 0.8rem;
 		letter-spacing: 0.05em;
-		color: var(--dorado);
+		color: var(--accent);
 		margin: 0 0 0.75rem;
 	}
 
 	.footer__enlace {
 		display: block;
-		color: var(--text-muted);
+		color: var(--text-soft);
 		text-decoration: none;
 		margin-bottom: 0.5rem;
 	}
@@ -112,5 +118,22 @@ const EMAIL = 'contacto@atalaiasrou.org';
 		border-top: 1px solid var(--border);
 		color: var(--text-faint);
 		font-size: 0.85rem;
+	}
+
+	.footer__legal p {
+		margin: 0;
+	}
+
+	.footer__legal p + p {
+		margin-top: 0.35rem;
+	}
+
+	.footer__credito a {
+		color: var(--text-faint);
+		text-decoration: underline;
+	}
+
+	.footer__credito a:hover {
+		color: var(--text-soft);
 	}
 </style>

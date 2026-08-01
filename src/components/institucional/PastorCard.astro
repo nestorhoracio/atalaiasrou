@@ -33,7 +33,7 @@ const { pastor } = Astro.props;
 		height: 96px;
 		margin-inline: auto;
 		border-radius: 999px;
-		background: var(--azul-dim);
+		background: var(--secondary-dim);
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -45,6 +45,7 @@ const { pastor } = Astro.props;
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+		object-position: top;
 	}
 
 	.pastor-card__silueta {
@@ -58,17 +59,17 @@ const { pastor } = Astro.props;
 		font-size: 0.75rem;
 		text-transform: uppercase;
 		letter-spacing: 0.05em;
-		color: var(--dorado);
+		color: var(--accent);
 		font-weight: 700;
 	}
 
 	.pastor-card__nombre {
 		margin: 0;
-		font-size: 1.05rem;
+		font-size: var(--fs-lg);
 	}
 
 	.pastor-card__descripcion {
-		color: var(--text-muted);
+		color: var(--text-soft);
 		margin: 0.5rem 0 0;
 	}
 </style>

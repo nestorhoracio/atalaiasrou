@@ -3,11 +3,12 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
 import PastoresGrid from '../components/institucional/PastoresGrid.astro';
+import QuienesSomos from '../components/institucional/QuienesSomos.astro';
 ---
 
 <Layout
 	title="Institucional — Atalaias Rou"
-	description="Conocé a los pastores mundiales, nacionales y regionales que acompañan el ministerio de Atalaias Rou / IMTF Uruguay y Brasil."
+	description="Conocé la historia, misión y visión del ministerio Atalaias Rou, y a los pastores mundiales, nacionales y regionales que lo acompañan."
 	organizacion={{
 		nombre: 'Atalaias Rou / IMTF Uruguay y Brasil',
 		padre: true,
@@ -15,16 +16,21 @@ import PastoresGrid from '../components/institucional/PastoresGrid.astro';
 >
 	<Header />
 
-	<header class="seccion contenedor">
+	<header class="seccion contenedor" style="text-align: center;">
 		<p class="etiqueta">Institucional</p>
-		<h1>Liderazgo del ministerio</h1>
-		<p style="color: var(--text-muted); max-width: 60ch;">
-			Presentamos a los pastores mundiales, nacionales y regionales que guían la predicación del evangelio y la obra
-			social de Atalaias Rou.
+		<h1>Quiénes somos</h1>
+		<p style="color: var(--text-soft); max-width: 60ch; margin-inline: auto;">
+			Un ministerio de comunicación cristiana que integra radios por Internet, plataformas digitales y apoyo a la obra
+			misionera internacional.
 		</p>
 	</header>
 
 	<section class="seccion contenedor" style="padding-top: 0;">
+		<QuienesSomos />
+	</section>
+
+	<section class="seccion contenedor" style="text-align: center;">
+		<h2>Liderazgo del ministerio</h2>
 		<PastoresGrid />
 	</section>
 

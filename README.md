@@ -25,6 +25,7 @@ Este proyecto **no incluye asistente de IA**, a diferencia de otros sitios del m
 
 - **Astro 7**, sitio 100% estático (sin adapter, sin backend)
 - CSS vanilla con custom properties (sin Tailwind, sin frameworks de UI)
+- Tipografía **Montserrat** + **Lora** autohospedadas (`@fontsource-variable/montserrat`, `@fontsource/lora` — sin Google Fonts CDN)
 - Content Collections de Astro (Markdown) para las noticias de cada subsitio
 - Hosting y despliegue continuo en **Netlify**
 
@@ -43,7 +44,7 @@ atalaiasrou/
     ├── content/
     │   ├── noticias-uruguay/*.md
     │   └── noticias-brasil/*.md
-    ├── data/              # radios, pastores, horarios y textos institucionales
+    ├── data/              # radios, pastores, horarios, contenido institucional general (UY/BR) y de "Proyecto Atalaias Rou"
     ├── layouts/Layout.astro
     ├── components/
     │   ├── seo/, layout/, home/, radios/, institucional/, noticias/, subsite/
@@ -107,6 +108,8 @@ Texto completo de la noticia en Markdown.
 
 **Textos institucionales de cada subsitio** (declaración de fe, historia, horarios, fotos, videos): editar `src/data/contenido-uruguay.ts` / `contenido-brasil.ts` y `horarios-uruguay.ts` / `horarios-brasil.ts`.
 
+**Contenido institucional general** (presentación, historia, misión, visión, valores, áreas de trabajo, organigrama, fundamento bíblico y lema del ministerio "Proyecto Atalaias Rou" completo, mostrado en `/institucional/`): editar `src/data/contenido-institucional.ts`.
+
 ---
 
 ## Deploy en Netlify
@@ -119,7 +122,7 @@ Cuando haya un dominio propio, configurarlo en Netlify y actualizar `site` en `a
 
 ## Datos de contacto
 
-*Pendiente de confirmar con el Pastor Manoel Da Luz* — hoy `Footer.astro` tiene un WhatsApp y un email placeholder (`598000000000` / `contacto@atalaiasrou.org`). Reemplazar por los datos reales del proyecto.
+El WhatsApp y el email reales del proyecto (los que aparecen en el material gráfico del Pastor Manoel Da Luz) ya están cargados en `Footer.astro`.
 
 ---
 

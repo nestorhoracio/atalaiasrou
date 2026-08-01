@@ -1,52 +1,72 @@
 /*
-  Paleta placeholder (dorado + azul + crema) hasta recibir el logo definitivo
-  del Pastor Manoel Da Luz. Cuando llegue el logo, ajustar los valores hex de
-  --dorado/--azul acá — el resto del sitio los hereda automáticamente.
-  Tema por defecto: CLARO/cálido (pedido explícito: "cálido y cercano").
+  Paleta y tipografía adoptadas de DESIGN-SYSTEM.md (documento de referencia
+  armado con Claude.ai a partir del logo del cliente), extendidas con los
+  tokens que el sitio real necesita y ese documento no define: --secondary*
+  (el azul de marca, que se mantiene como acento secundario junto al dorado),
+  --surface-2, --text-faint y --accent-dim.
+  Tema por defecto: CLARO/cálido (pedido explícito del cliente: "cálido y cercano").
+  --accent-fill (dorado de marca) NUNCA se usa como color de texto en tema claro:
+  da 2.09:1 de contraste, muy por debajo del 4.5:1 de WCAG AA. Para texto/enlaces
+  usar siempre --accent.
 */
 :root,
 [data-theme='light'] {
-	--bg: #faf6ec;
+	--bg: #fbf8f3;
 	--surface: #ffffff;
-	--surface-2: #f3ecd9;
-	--border: #e4d9bd;
+	--surface-2: #f2ead9;
+	--border: #e8e1d4;
 
-	--text: #24211a;
-	--text-muted: #6b6152;
-	--text-faint: #a49a83;
+	--text: #2a231a;
+	--text-soft: #6b6153;
+	--text-faint: #a79c89;
 
-	--azul: #123c69;
-	--azul-bright: #1b5490;
-	--azul-dim: rgba(18, 60, 105, 0.1);
+	--secondary: #123c69;
+	--secondary-bright: #1b5490;
+	--secondary-dim: rgba(18, 60, 105, 0.1);
 
-	--dorado: #b3891c;
-	--dorado-bright: #d6a52a;
-	--dorado-dim: rgba(179, 137, 28, 0.15);
+	--accent: #8a5a0f;
+	--accent-fill: #dfa42e;
+	--accent-dim: rgba(223, 164, 46, 0.15);
+
+	--cta: #122036;
+	--cta-text: #fbf8f3;
 
 	--header-h: 72px;
 	--player-h: 78px;
 
 	--radius: 14px;
 	--shadow: 0 4px 20px rgba(36, 33, 26, 0.08);
+
+	/* Escala 1.25 (mayor tercera), base 18px. Montserrat nunca por debajo de
+	   24px: h1-h4 usan estos pasos por defecto para cumplirlo. */
+	--fs-lg: 1.25rem;
+	--fs-xl: 1.563rem;
+	--fs-2xl: 1.953rem;
+	--fs-3xl: 2.441rem;
+	--fs-4xl: 3.052rem;
 }
 
 [data-theme='dark'] {
-	--bg: #0f1826;
-	--surface: #16233a;
-	--surface-2: #1c2c46;
-	--border: #29406a;
+	--bg: #0b1526;
+	--surface: #122036;
+	--surface-2: #1c2f47;
+	--border: #26456f;
 
-	--text: #f4efe1;
-	--text-muted: #a9b4c4;
-	--text-faint: #6d7a91;
+	--text: #ede6da;
+	--text-soft: #a99c88;
+	--text-faint: #8d8171;
 
-	--azul: #5a8fd6;
-	--azul-bright: #7fa8e2;
-	--azul-dim: rgba(90, 143, 214, 0.18);
+	--secondary: #5a8fd6;
+	--secondary-bright: #7fa8e2;
+	--secondary-dim: rgba(90, 143, 214, 0.18);
 
-	--dorado: #e0bb3a;
-	--dorado-bright: #f2d066;
-	--dorado-dim: rgba(224, 187, 58, 0.18);
+	--accent: #e9bc5a;
+	--accent-fill: #dfa42e;
+	--accent-dim: rgba(223, 164, 46, 0.18);
+
+	/* En oscuro el dorado sí puede protagonizar el CTA. */
+	--cta: #dfa42e;
+	--cta-text: #060b18;
 
 	--shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
 }
@@ -58,6 +78,7 @@
 }
 
 html {
+	font-size: 18px;
 	scroll-behavior: smooth;
 	scroll-padding-top: calc(var(--header-h) + 12px);
 }
@@ -66,9 +87,9 @@ body {
 	margin: 0;
 	background: var(--bg);
 	color: var(--text);
-	font-family: 'Mulish', system-ui, sans-serif;
+	font-family: 'Lora', Georgia, 'Times New Roman', serif;
 	font-size: 1rem;
-	line-height: 1.6;
+	line-height: 1.75;
 	transition: background-color 0.2s ease, color 0.2s ease;
 }
 
@@ -76,10 +97,24 @@ h1,
 h2,
 h3,
 h4 {
-	font-family: 'Fraunces', Georgia, serif;
+	font-family: 'Montserrat Variable', 'Montserrat', system-ui, sans-serif;
+	font-weight: 700;
 	line-height: 1.15;
 	margin: 0 0 0.5em;
 	color: var(--text);
+}
+
+h1 {
+	font-size: var(--fs-3xl);
+}
+
+h2 {
+	font-size: var(--fs-2xl);
+}
+
+h3,
+h4 {
+	font-size: var(--fs-xl);
 }
 
 p {
@@ -87,7 +122,7 @@ p {
 }
 
 a {
-	color: var(--azul-bright);
+	color: var(--secondary-bright);
 }
 
 img {
@@ -112,7 +147,7 @@ img {
 	font-weight: 700;
 	letter-spacing: 0.06em;
 	text-transform: uppercase;
-	color: var(--dorado);
+	color: var(--accent);
 	margin-bottom: 0.5rem;
 }
 
@@ -135,12 +170,12 @@ img {
 }
 
 .boton--primario {
-	background: var(--azul);
-	color: #fff;
+	background: var(--cta);
+	color: var(--cta-text);
 }
 
 .boton--dorado {
-	background: var(--dorado);
+	background: var(--accent-fill);
 	color: #2a1e00;
 }
 
@@ -171,6 +206,13 @@ img {
 
 .grid-auto {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+	/* auto-fit (no auto-fill): las columnas vacías colapsan a 0, dejando que
+	   justify-content centre de verdad las filas incompletas (ej. una sola
+	   tarjeta de pastor o de noticia). El máximo fijo (280px, no 1fr) evita
+	   que esa tarjeta única se estire para ocupar todo el ancho libre — con
+	   filas completas el resultado es casi idéntico al de antes (~280px por
+	   tarjeta a los anchos típicos del sitio). */
+	grid-template-columns: repeat(auto-fit, minmax(220px, 280px));
+	justify-content: center;
 	gap: 1.25rem;
 }

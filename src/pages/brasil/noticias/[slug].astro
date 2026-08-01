@@ -27,8 +27,10 @@ const fechaFormateada = new Intl.DateTimeFormat('pt-BR', {
 	<SubsiteNav lang="pt" base="/brasil" activo="noticias" />
 
 	<article class="seccion contenedor noticia-detalle">
-		<p class="etiqueta">{fechaFormateada}</p>
-		<h1>{entry.data.titulo}</h1>
+		<div style="text-align: center;">
+			<p class="etiqueta">{fechaFormateada}</p>
+			<h1>{entry.data.titulo}</h1>
+		</div>
 		{entry.data.imagen && <img src={entry.data.imagen} alt={entry.data.imagenAlt ?? ''} class="noticia-detalle__imagen" />}
 		<div class="noticia-detalle__cuerpo">
 			<Content />

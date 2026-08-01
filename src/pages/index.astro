@@ -21,12 +21,14 @@ import TeaserInstitucional from '../components/home/TeaserInstitucional.astro';
 
 	<section id="radios" class="seccion">
 		<div class="contenedor">
-			<p class="etiqueta">En vivo</p>
-			<h2>Nuestras radios</h2>
-			<p style="color: var(--text-muted); max-width: 60ch;">
-				Elegí una emisora para escucharla en vivo. Las que todavía no están disponibles se irán sumando a medida que
-				confirmemos sus datos de transmisión.
-			</p>
+			<div style="text-align: center;">
+				<p class="etiqueta">En vivo</p>
+				<h2>Nuestras radios</h2>
+				<p style="color: var(--text-soft); max-width: 60ch; margin-inline: auto;">
+					Elegí una emisora para escucharla en vivo. Las que todavía no están disponibles se irán sumando a medida que
+					confirmemos sus datos de transmisión.
+				</p>
+			</div>
 			<RadioGrid />
 		</div>
 	</section>

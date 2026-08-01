@@ -48,7 +48,7 @@ const etiqueta = radio.streamUrl === null ? 'Próximamente' : disponible ? '' : 
 
 	.radio-card:not(:disabled):hover {
 		transform: translateY(-2px);
-		border-color: var(--dorado);
+		border-color: var(--accent-fill);
 	}
 
 	.radio-card:disabled {
@@ -60,7 +60,7 @@ const etiqueta = radio.streamUrl === null ? 'Próximamente' : disponible ? '' : 
 		width: 56px;
 		height: 56px;
 		border-radius: 999px;
-		background: var(--azul-dim);
+		background: var(--secondary-dim);
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -74,10 +74,10 @@ const etiqueta = radio.streamUrl === null ? 'Próximamente' : disponible ? '' : 
 	}
 
 	.radio-card__logo-inicial {
-		font-family: 'Fraunces', serif;
+		font-family: 'Montserrat Variable', 'Montserrat', system-ui, sans-serif;
 		font-weight: 700;
 		font-size: 1.4rem;
-		color: var(--azul);
+		color: var(--secondary);
 	}
 
 	.radio-card__nombre {
@@ -94,7 +94,7 @@ const etiqueta = radio.streamUrl === null ? 'Próximamente' : disponible ? '' : 
 
 	.radio-card__icono {
 		font-size: 0.8rem;
-		color: var(--dorado);
+		color: var(--accent);
 	}
 
 	.radio-card__icono-pausa {
@@ -110,7 +110,7 @@ const etiqueta = radio.streamUrl === null ? 'Próximamente' : disponible ? '' : 
 	}
 
 	.radio-card.radio-card--activa {
-		border-color: var(--dorado);
-		box-shadow: 0 0 0 2px var(--dorado-dim);
+		border-color: var(--accent-fill);
+		box-shadow: 0 0 0 2px var(--accent-dim);
 	}
 </style>

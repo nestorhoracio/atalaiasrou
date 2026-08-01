@@ -33,7 +33,7 @@ const ultimasNoticias = (await getCollection('noticias-brasil', ({ data }) => !d
 	<Header lang="pt" />
 	<SubsiteNav lang="pt" base="/brasil" activo="inicio" />
 
-	<header class="seccion contenedor">
+	<header class="seccion contenedor" style="text-align: center;">
 		<p class="etiqueta">IMTF Brasil</p>
 		<h1>Pregação do evangelho e ação social</h1>
 	</header>
@@ -43,10 +43,10 @@ const ultimasNoticias = (await getCollection('noticias-brasil', ({ data }) => !d
 	<Videos lang="pt" videoIds={videoIdsYoutube} />
 	<Horarios lang="pt" items={horarios} />
 
-	<section class="seccion contenedor">
+	<section class="seccion contenedor" style="text-align: center;">
 		<h2>Últimas notícias</h2>
 		{ultimasNoticias.length === 0 ? (
-			<p style="color: var(--text-muted);">Ainda não há notícias publicadas.</p>
+			<p style="color: var(--text-soft);">Ainda não há notícias publicadas.</p>
 		) : (
 			<div class="grid-auto">
 				{ultimasNoticias.map((noticia) => (

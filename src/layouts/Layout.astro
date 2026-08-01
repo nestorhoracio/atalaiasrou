@@ -1,5 +1,10 @@
 ---
 import SEO from '../components/seo/SEO.astro';
+import '@fontsource-variable/montserrat';
+import '@fontsource/lora/400.css';
+import '@fontsource/lora/400-italic.css';
+import '@fontsource/lora/500.css';
+import '@fontsource/lora/600.css';
 import '../styles/global.css';
 
 interface Props {
@@ -27,13 +32,6 @@ const { title, description, lang = 'es', ogImage, tipo, organizacion } = Astro.p
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
 		<SEO title={title} description={description} lang={lang} ogImage={ogImage} tipo={tipo} organizacion={organizacion} />
-
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Mulish:wght@400;600;700;800&display=swap"
-			rel="stylesheet"
-		/>
 
 		<script is:inline>
 			// Anti-FOUC: aplica el tema guardado antes del primer render.

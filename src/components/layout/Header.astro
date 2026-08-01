@@ -31,10 +31,10 @@ const activo = (prefijo: string) => (ruta === prefijo || (prefijo !== '/' && rut
 
 <header class="header">
 	<div class="contenedor header__interior">
-		<a href="/" class="header__marca" aria-label="Atalaias Rou — Inicio">
+		<a href="/" class="header__marca" aria-label="Proyecto Atalaias Rou — Inicio">
 			<!-- Placeholder de logo: reemplazar por el logo real del cliente cuando esté disponible -->
 			<span class="header__marca-icono">A</span>
-			<span class="header__marca-texto">Atalaias Rou</span>
+			<span class="header__marca-texto">Proyecto Atalaias Rou</span>
 		</a>
 
 		<nav class="nav" aria-label="Navegación principal">
@@ -75,9 +75,9 @@ const activo = (prefijo: string) => (ruta === prefijo || (prefijo !== '/' && rut
 		gap: 0.6rem;
 		text-decoration: none;
 		color: var(--text);
-		font-family: 'Fraunces', serif;
+		font-family: 'Montserrat Variable', 'Montserrat', system-ui, sans-serif;
 		font-weight: 700;
-		font-size: 1.15rem;
+		font-size: 1.35rem;
 	}
 
 	.header__marca-icono {
@@ -87,9 +87,10 @@ const activo = (prefijo: string) => (ruta === prefijo || (prefijo !== '/' && rut
 		width: 36px;
 		height: 36px;
 		border-radius: 999px;
-		background: linear-gradient(135deg, var(--dorado), var(--azul));
+		background: linear-gradient(135deg, var(--accent-fill), var(--secondary));
 		color: #fff;
-		font-family: 'Fraunces', serif;
+		font-family: 'Montserrat Variable', 'Montserrat', system-ui, sans-serif;
+		font-size: 1rem;
 	}
 
 	.nav {
@@ -100,7 +101,7 @@ const activo = (prefijo: string) => (ruta === prefijo || (prefijo !== '/' && rut
 	}
 
 	.nav__enlace {
-		color: var(--text-muted);
+		color: var(--text-soft);
 		text-decoration: none;
 		font-weight: 700;
 		font-size: 0.92rem;
@@ -111,7 +112,7 @@ const activo = (prefijo: string) => (ruta === prefijo || (prefijo !== '/' && rut
 	.nav__enlace:hover,
 	.nav__enlace--activo {
 		color: var(--text);
-		border-color: var(--dorado);
+		border-color: var(--accent-fill);
 	}
 
 	@media (max-width: 720px) {

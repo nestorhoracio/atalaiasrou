@@ -1,15 +1,45 @@
 ---
 import { radios } from '../../data/radios';
 import RadioCard from './RadioCard.astro';
+
+const radiosEspanol = radios.filter((r) => r.pais === 'UY');
+const radiosPortugues = radios.filter((r) => r.pais === 'BR');
+const otras = radios.filter((r) => r.pais !== 'UY' && r.pais !== 'BR');
 ---
 
-<div id="atalaias-radio-grid" class="grid-auto">
-	{radios.map((radio) => <RadioCard radio={radio} />)}
+<div id="atalaias-radio-grid" class="radio-grid">
+	{
+		radiosEspanol.length > 0 && (
+			<div class="radio-grid__grupo">
+				<h3 class="radio-grid__titulo">Radios en español</h3>
+				<div class="grid-auto">{radiosEspanol.map((radio) => <RadioCard radio={radio} />)}</div>
+			</div>
+		)
+	}
+	{
+		radiosPortugues.length > 0 && (
+			<div class="radio-grid__grupo">
+				<h3 class="radio-grid__titulo" lang="pt-BR">
+					Rádios em português
+				</h3>
+				<div class="grid-auto">{radiosPortugues.map((radio) => <RadioCard radio={radio} />)}</div>
+			</div>
+		)
+	}
+	{
+		otras.length > 0 && (
+			<div class="radio-grid__grupo">
+				<div class="grid-auto">{otras.map((radio) => <RadioCard radio={radio} />)}</div>
+			</div>
+		)
+	}
 </div>
 
 <script>
-	// Delegación de eventos: un solo listener para las 20 tarjetas.
-	// Namespace "atalaias" — no cambiar sin actualizar CLAUDE.md.
+	// Delegación de eventos: un solo listener para las 20 tarjetas, aunque
+	// ahora estén repartidas en dos sub-grillas (español/portugués) dentro
+	// del mismo contenedor padre. Namespace "atalaias" — no cambiar sin
+	// actualizar CLAUDE.md.
 	const grilla = document.getElementById('atalaias-radio-grid');
 
 	grilla?.addEventListener('click', (evento) => {
@@ -33,3 +63,15 @@ import RadioCard from './RadioCard.astro';
 		}
 	}
 </script>
+
+<style>
+	.radio-grid__grupo + .radio-grid__grupo {
+		margin-top: 2.5rem;
+	}
+
+	.radio-grid__titulo {
+		text-align: center;
+		color: var(--secondary);
+		margin-bottom: 1.25rem;
+	}
+</style>

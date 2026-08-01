@@ -15,12 +15,12 @@ const noticias = (await getCollection('noticias-brasil', ({ data }) => !data.bor
 	<Header lang="pt" />
 	<SubsiteNav lang="pt" base="/brasil" activo="noticias" />
 
-	<section class="seccion contenedor">
+	<section class="seccion contenedor" style="text-align: center;">
 		<p class="etiqueta">IMTF Brasil</p>
 		<h1>Notícias</h1>
 
 		{noticias.length === 0 ? (
-			<p style="color: var(--text-muted);">Ainda não há notícias publicadas.</p>
+			<p style="color: var(--text-soft);">Ainda não há notícias publicadas.</p>
 		) : (
 			<div class="grid-auto">
 				{noticias.map((noticia) => (

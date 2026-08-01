@@ -15,12 +15,12 @@ const noticias = (await getCollection('noticias-uruguay', ({ data }) => !data.bo
 	<Header />
 	<SubsiteNav lang="es" base="/uruguay" activo="noticias" />
 
-	<section class="seccion contenedor">
+	<section class="seccion contenedor" style="text-align: center;">
 		<p class="etiqueta">IMTF Uruguay</p>
 		<h1>Noticias</h1>
 
 		{noticias.length === 0 ? (
-			<p style="color: var(--text-muted);">Todavía no hay noticias publicadas.</p>
+			<p style="color: var(--text-soft);">Todavía no hay noticias publicadas.</p>
 		) : (
 			<div class="grid-auto">
 				{noticias.map((noticia) => (
