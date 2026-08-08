@@ -34,7 +34,7 @@ export const pastores: Pastor[] = [
 		nombre: 'Manoel Nunes da Luz y Shirley Rivero da Luz',
 		nivel: 'nacional',
 		foto: '/images/pastores/manoel-shirley.webp',
-		descripcion: 'Fundador del ministerio y Responsable de Estudios y Producción.',
+		descripcion: 'Fundador del proyecto y Dirección nacional.',
 	},
 	{ id: 'regional-1', nombre: 'Nombre pendiente', nivel: 'regional' },
 	{ id: 'regional-2', nombre: 'Nombre pendiente', nivel: 'regional' },

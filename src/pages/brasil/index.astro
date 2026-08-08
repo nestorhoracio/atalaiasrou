@@ -9,7 +9,7 @@ import Galeria from '../../components/subsite/Galeria.astro';
 import Videos from '../../components/subsite/Videos.astro';
 import Horarios from '../../components/subsite/Horarios.astro';
 import NoticiaCard from '../../components/noticias/NoticiaCard.astro';
-import { declaracaoDeFe, historia, fotos, videoIdsYoutube } from '../../data/contenido-brasil';
+import { declaracaoDeFe, historia, versiculo, lema, fotos, videoIdsYoutube } from '../../data/contenido-brasil';
 import { horarios as horariosBrasil } from '../../data/horarios-brasil';
 import { breadcrumbList } from '../../lib/seo';
 
@@ -45,7 +45,7 @@ const ultimasNoticias = (await getCollection('noticias-brasil', ({ data }) => !d
 		<h1>Pregação do evangelho e ação social</h1>
 	</header>
 
-	<DeclaracionFe lang="pt" declaracion={declaracaoDeFe} historia={historia} />
+	<DeclaracionFe lang="pt" declaracion={declaracaoDeFe} historia={historia} versiculo={versiculo} lema={lema} />
 	<Galeria lang="pt" fotos={fotos} />
 	<Videos lang="pt" videoIds={videoIdsYoutube} />
 	<Horarios lang="pt" items={horarios} />

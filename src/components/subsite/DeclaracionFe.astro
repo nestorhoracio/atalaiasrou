@@ -2,10 +2,12 @@
 interface Props {
 	lang?: 'es' | 'pt';
 	declaracion: string;
-	historia: string;
+	historia: string[];
+	versiculo?: { referencia: string; texto: string };
+	lema?: string;
 }
 
-const { lang = 'es', declaracion, historia } = Astro.props;
+const { lang = 'es', declaracion, historia, versiculo, lema } = Astro.props;
 
 const textos = {
 	es: { declaracion: 'Declaración de fe', historia: 'Nuestra historia' },
@@ -22,14 +24,23 @@ const t = textos[lang];
 	</div>
 	<div class="declaracion-fe__bloque">
 		<h2>{t.historia}</h2>
-		<p>{historia}</p>
+		{
+			versiculo && (
+				<blockquote class="declaracion-fe__cita">
+					<p>“{versiculo.texto}”</p>
+					<cite>{versiculo.referencia}</cite>
+				</blockquote>
+			)
+		}
+		{historia.map((parrafo) => <p>{parrafo}</p>)}
+		{lema && <p class="declaracion-fe__lema">{lema}</p>}
 	</div>
 </section>
 
 <style>
 	.declaracion-fe {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		display: flex;
+		flex-direction: column;
 		gap: 2.5rem;
 		text-align: center;
 	}
@@ -37,5 +48,41 @@ const t = textos[lang];
 	.declaracion-fe__bloque p {
 		color: var(--text-soft);
 		line-height: 1.75;
+		max-width: 68ch;
+		margin: 0 auto 1.25rem;
+	}
+
+	.declaracion-fe__bloque p:last-child {
+		margin-bottom: 0;
+	}
+
+	.declaracion-fe__cita {
+		max-width: 68ch;
+		margin: 0 auto 1.5rem;
+		padding: 1.25rem;
+		border-top: 3px solid var(--accent-fill);
+		background: var(--surface-2);
+		border-radius: var(--radius);
+	}
+
+	.declaracion-fe__cita p {
+		font-family: 'Lora', Georgia, serif;
+		font-style: italic;
+		margin: 0 0 0.5rem;
+	}
+
+	.declaracion-fe__cita cite {
+		font-style: normal;
+		font-weight: 700;
+		font-size: 0.85rem;
+		color: var(--text-faint);
+	}
+
+	.declaracion-fe__lema {
+		font-family: 'Lora', Georgia, serif;
+		font-style: italic;
+		font-size: 1.3rem;
+		font-weight: 700;
+		color: var(--secondary);
 	}
 </style>

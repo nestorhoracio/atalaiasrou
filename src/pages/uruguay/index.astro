@@ -9,7 +9,7 @@ import Galeria from '../../components/subsite/Galeria.astro';
 import Videos from '../../components/subsite/Videos.astro';
 import Horarios from '../../components/subsite/Horarios.astro';
 import NoticiaCard from '../../components/noticias/NoticiaCard.astro';
-import { declaracionFe, historia, fotos, videoIdsYoutube } from '../../data/contenido-uruguay';
+import { declaracionFe, historia, versiculo, lema, fotos, videoIdsYoutube } from '../../data/contenido-uruguay';
 import { horarios } from '../../data/horarios-uruguay';
 import { breadcrumbList } from '../../lib/seo';
 
@@ -43,7 +43,7 @@ const ultimasNoticias = (await getCollection('noticias-uruguay', ({ data }) => !
 		<h1>Predicación del evangelio y acción social</h1>
 	</header>
 
-	<DeclaracionFe lang="es" declaracion={declaracionFe} historia={historia} />
+	<DeclaracionFe lang="es" declaracion={declaracionFe} historia={historia} versiculo={versiculo} lema={lema} />
 	<Galeria lang="es" fotos={fotos} />
 	<Videos lang="es" videoIds={videoIdsYoutube} />
 	<Horarios lang="es" items={horarios} />

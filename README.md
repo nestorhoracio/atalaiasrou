@@ -108,7 +108,7 @@ Texto completo de la noticia en Markdown.
 
 **Un pastor nuevo**: editar el array `pastores` en `src/data/pastores.ts`.
 
-**Textos institucionales de cada subsitio** (declaración de fe, historia, horarios, fotos, videos): editar `src/data/contenido-uruguay.ts` / `contenido-brasil.ts` y `horarios-uruguay.ts` / `horarios-brasil.ts`.
+**Textos institucionales de cada subsitio** (declaración de fe, historia, horarios, fotos, videos): editar `src/data/contenido-uruguay.ts` / `contenido-brasil.ts` y `horarios-uruguay.ts` / `horarios-brasil.ts`. `historia` es una lista de párrafos (`string[]`, un elemento por párrafo, no un texto único); `versiculo` (`{ referencia, texto }`) y `lema` (`string`) se muestran destacados arriba y abajo de esos párrafos. `declaracionFe`/`declaracaoDeFe` sigue siendo un texto simple.
 
 **Contenido institucional general** (presentación, historia, misión, visión, valores, áreas de trabajo, organigrama, fundamento bíblico y lema del ministerio "Proyecto Atalaias Rou" completo, mostrado en `/institucional/`): editar `src/data/contenido-institucional.ts`.
 

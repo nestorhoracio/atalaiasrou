@@ -7,8 +7,8 @@
  * informe original: ver ROADMAP.md antes de publicar cualquier dato de pago.
  *
  * La declaración de fe / historia específica de IMTF Uruguay y de IMTF
- * Brasil vive aparte, en contenido-uruguay.ts / contenido-brasil.ts, y sigue
- * pendiente de recibir su propio texto.
+ * Brasil vive aparte, en contenido-uruguay.ts / contenido-brasil.ts. La
+ * historia ya llegó (2026-08-08); la declaración de fe sigue pendiente.
  */
 
 export const presentacion =
@@ -59,11 +59,9 @@ export interface RolOrganigrama {
 }
 
 export const organigrama: RolOrganigrama[] = [
-	{ rol: 'Fundador', nombre: 'Pastor Manoel Nunes da Luz' },
-	{ rol: 'Responsable de Estudios y Producción', nombre: 'Shirley Rivero da Luz' },
-	{ rol: 'Responsable Internacional de Misiones', nombre: 'Pastor Evangelista Billy Roullet' },
+	{ rol: 'Fundador del proyecto', nombre: 'Manoel Nunes da Luz y esposa Shirley Rivero da Luz' },
 	{ rol: 'Coordinador general', nombre: 'Leonardo y su esposa Isabella' },
-	{ rol: 'Dirección nacional', nombre: 'Proyecto Atalaias Rou, Uruguay' },
+	{ rol: 'Dirección nacional', nombre: 'Shirley Rivero da Luz' },
 	{ rol: 'Equipo', nombre: 'Operadores de radio, productores, diseñadores, colaboradores, intercesores y voluntarios' },
 ];
 

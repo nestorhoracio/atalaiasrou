@@ -167,24 +167,20 @@ import {
 	}
 
 	.quienes-somos__organigrama {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
+		/* flex-wrap, no grid: con 4 cargos (3 en la fila 1, 1 en la fila 2) un
+		   grid de columnas fijas deja la última fila pegada a la columna 1
+		   (las columnas son compartidas por todas las filas, no se recalculan
+		   fila por fila) — verificado con las coordenadas reales del elemento.
+		   flexbox sí centra cada fila de forma independiente. */
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
 		gap: 1.25rem;
 	}
 
-	@media (max-width: 900px) {
-		.quienes-somos__organigrama {
-			grid-template-columns: repeat(2, 1fr);
-		}
-	}
-
-	@media (max-width: 480px) {
-		.quienes-somos__organigrama {
-			grid-template-columns: 1fr;
-		}
-	}
-
 	.quienes-somos__org-item {
+		flex: 0 1 280px;
+		min-width: 220px;
 		padding: 1.25rem;
 	}
 
